@@ -75,6 +75,28 @@ const changelogData: ChangelogItem[] = [
         description: "Ajout de métadonnées pour améliorer le référencement"
       }
     ]
+  },
+  {
+    date: "25 Novembre 2024",
+    version: "0.3.0",
+    changes: [
+      {
+        type: "feature",
+        description: "Développement complet de la page Culture Musicale avec sections Histoire, Genres et Instruments"
+      },
+      {
+        type: "feature",
+        description: "Ajout d'articles à la une dans la section Culture Musicale"
+      },
+      {
+        type: "improvement",
+        description: "Enrichissement du contenu pédagogique avec des outils interactifs"
+      },
+      {
+        type: "update",
+        description: "Mise à jour du changelog pour refléter les derniers développements"
+      }
+    ]
   }
 ];
 

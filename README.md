@@ -1,69 +1,48 @@
-# Welcome to your Lovable project
 
-## Project info
+# MéloDimensions - Explorer les dimensions de la musique
 
-**URL**: https://lovable.dev/projects/6ac15dbd-3741-4680-939b-9f4fc96ad5ce
+## À propos du projet
 
-## How can I edit this code?
+MéloDimensions est un site web éducatif dédié à l'exploration des multiples dimensions de la musique, depuis les aspects physiques du son jusqu'aux fonctions sociales de la musique, en passant par la culture musicale et les aspects techniques.
 
-There are several ways of editing your application.
+## Structure du site
 
-**Use Lovable**
+- **Physique du Son** : Acoustique, ondes sonores et audition humaine
+- **Culture Musicale** : Histoire, genres et évolution de la musique
+- **Aspects Techniques** : Création, production et diffusion musicale
+- **Fonctions Sociales** : Rôle de la musique dans la société et psychologie
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6ac15dbd-3741-4680-939b-9f4fc96ad5ce) and start prompting.
+## Technologies utilisées
 
-Changes made via Lovable will be committed automatically to this repo.
+- React avec TypeScript
+- Vite pour le bundling
+- Tailwind CSS pour le styling
+- shadcn/ui pour les composants d'interface
+- React Router pour la navigation
+- Supabase pour le backend (en cours d'intégration)
 
-**Use your preferred IDE**
+## Développement local
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Pour lancer le projet en local :
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+# Cloner le dépôt
+git clone https://github.com/HylstEdu/melody-dimensions-explorer.git
 
-Follow these steps:
+# Naviguer dans le dossier du projet
+cd melody-dimensions-explorer
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Installer les dépendances
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Lancer le serveur de développement
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Contribution
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à soumettre une pull request pour améliorer le contenu ou le code du site.
 
-**Use GitHub Codespaces**
+## License
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6ac15dbd-3741-4680-939b-9f4fc96ad5ce) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.

@@ -57,6 +57,24 @@ const changelogData: ChangelogItem[] = [
         description: "Amélioration de la structure du site et de la navigation"
       }
     ]
+  },
+  {
+    date: "24 Novembre 2024",
+    version: "0.2.2",
+    changes: [
+      {
+        type: "update",
+        description: "Mise à jour du README avec des informations détaillées sur le projet"
+      },
+      {
+        type: "improvement",
+        description: "Optimisation de la performance et correction de bugs mineurs"
+      },
+      {
+        type: "feature",
+        description: "Ajout de métadonnées pour améliorer le référencement"
+      }
+    ]
   }
 ];
 

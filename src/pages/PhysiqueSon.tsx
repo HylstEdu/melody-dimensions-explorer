@@ -1,9 +1,8 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Volume2, WaveformIcon } from "lucide-react";
+import { Volume2, AudioWaveform } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const PhysiqueSon = () => {
@@ -139,7 +138,7 @@ const PhysiqueSon = () => {
           <Card className="card-hover">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <WaveformIcon className="h-5 w-5 text-primary" />
+                <AudioWaveform className="h-5 w-5 text-primary" />
                 Instruments et acoustique
               </CardTitle>
             </CardHeader>

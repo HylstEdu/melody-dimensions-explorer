@@ -11,6 +11,7 @@ import CultureMusicale from "./pages/CultureMusicale";
 import AspectsTechniques from "./pages/AspectsTechniques";
 import FonctionsSociales from "./pages/FonctionsSociales";
 import NotFound from "./pages/NotFound";
+import Changelog from "./components/Changelog";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/culture" element={<CultureMusicale />} />
             <Route path="/technique" element={<AspectsTechniques />} />
             <Route path="/societe" element={<FonctionsSociales />} />
+            <Route path="/changelog" element={<Changelog />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

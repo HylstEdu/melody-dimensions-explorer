@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
   Music, 
-  StringIcon,
+  Violin,
   ArrowLeftIcon,
   Wind,
   Drumstick  
@@ -59,7 +58,7 @@ const Instruments = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   <div className="relative w-full max-w-xs">
-                    <StringIcon className="w-full h-auto text-acoustic-600" />
+                    <Violin className="w-full h-auto text-acoustic-600" />
                   </div>
                 </div>
               </div>

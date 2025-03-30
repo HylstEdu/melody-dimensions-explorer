@@ -6,9 +6,9 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
-  WaveformIcon, 
+  Waveform, 
   RepeatIcon,
-  WavesIcon,
+  Waves,
   ArrowLeftIcon
 } from "lucide-react";
 
@@ -59,7 +59,7 @@ const Phenomenes = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   <div className="relative w-full max-w-xs">
-                    <WaveformIcon className="w-full h-auto text-acoustic-600 animate-pulse-slow" />
+                    <Waveform className="w-full h-auto text-acoustic-600 animate-pulse-slow" />
                     <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2">
                       <div className="w-8 h-8 bg-acoustic-600 rounded-full animate-wave"></div>
                     </div>
@@ -146,7 +146,7 @@ const Phenomenes = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   <div className="relative w-full max-w-xs">
-                    <WavesIcon className="w-full h-auto text-acoustic-600" />
+                    <Waves className="w-full h-auto text-acoustic-600" />
                   </div>
                 </div>
               </div>
@@ -188,8 +188,8 @@ const Phenomenes = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   <div className="relative w-full max-w-xs">
-                    <WaveformIcon className="w-full h-auto text-acoustic-600" />
-                    <WaveformIcon className="w-full h-auto text-acoustic-400 absolute top-0 left-0 opacity-50" />
+                    <Waveform className="w-full h-auto text-acoustic-600" />
+                    <Waveform className="w-full h-auto text-acoustic-400 absolute top-0 left-0 opacity-50" />
                   </div>
                 </div>
               </div>

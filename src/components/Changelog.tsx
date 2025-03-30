@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { 
@@ -139,6 +138,28 @@ const changelogData: ChangelogItem[] = [
       {
         type: "update",
         description: "Enrichissement des méta-informations pour les sections et sous-sections"
+      }
+    ]
+  },
+  {
+    date: "28 Novembre 2024",
+    version: "0.6.0",
+    changes: [
+      {
+        type: "feature",
+        description: "Ajout des pages 'Phénomènes acoustiques' et 'Instruments et acoustique' avec contenu détaillé"
+      },
+      {
+        type: "improvement",
+        description: "Enrichissement du contenu sur l'effet Doppler, la résonance, les harmoniques et les battements"
+      },
+      {
+        type: "improvement",
+        description: "Ajout d'informations détaillées sur l'acoustique des instruments à cordes, à vent, à percussion et électroniques"
+      },
+      {
+        type: "update",
+        description: "Mise à jour des fils d'Ariane pour inclure les nouvelles pages"
       }
     ]
   }

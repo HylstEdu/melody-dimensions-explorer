@@ -11,6 +11,8 @@ import CultureMusicale from "./pages/CultureMusicale";
 import AspectsTechniques from "./pages/AspectsTechniques";
 import FonctionsSociales from "./pages/FonctionsSociales";
 import Musicotherapie from "./pages/Musicotherapie";
+import Phenomenes from "./pages/PhysiqueSon/Phenomenes";
+import Instruments from "./pages/PhysiqueSon/Instruments";
 import NotFound from "./pages/NotFound";
 import Changelog from "./components/Changelog";
 
@@ -26,6 +28,8 @@ const App = () => (
           <Route element={<MainLayout />}>
             <Route path="/" element={<Index />} />
             <Route path="/physique-son" element={<PhysiqueSon />} />
+            <Route path="/physique-son/phenomenes" element={<Phenomenes />} />
+            <Route path="/physique-son/instruments" element={<Instruments />} />
             <Route path="/culture" element={<CultureMusicale />} />
             <Route path="/technique" element={<AspectsTechniques />} />
             <Route path="/societe" element={<FonctionsSociales />} />

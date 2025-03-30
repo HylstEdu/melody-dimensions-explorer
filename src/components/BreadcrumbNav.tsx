@@ -26,6 +26,16 @@ const routeConfig: BreadcrumbConfig = {
     parent: "/",
     description: "Découvrez les principes fondamentaux de l'acoustique et de la perception auditive"
   },
+  "/physique-son/phenomenes": { 
+    label: "Phénomènes Acoustiques", 
+    parent: "/physique-son",
+    description: "Exploration des phénomènes acoustiques fascinants comme l'effet Doppler et les harmoniques"
+  },
+  "/physique-son/instruments": { 
+    label: "Instruments et Acoustique", 
+    parent: "/physique-son",
+    description: "Comment les lois de l'acoustique influencent la conception et le son des instruments"
+  },
   "/culture": { 
     label: "Culture Musicale", 
     parent: "/",

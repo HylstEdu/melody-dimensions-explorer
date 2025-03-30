@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
   Music, 
-  Violin,
   ArrowLeftIcon,
   Wind,
   Drumstick  
@@ -58,7 +57,7 @@ const Instruments = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   <div className="relative w-full max-w-xs">
-                    <Violin className="w-full h-auto text-acoustic-600" />
+                    <Music className="w-full h-auto text-acoustic-600" />
                   </div>
                 </div>
               </div>

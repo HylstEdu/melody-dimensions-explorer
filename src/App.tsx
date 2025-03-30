@@ -10,6 +10,7 @@ import PhysiqueSon from "./pages/PhysiqueSon";
 import CultureMusicale from "./pages/CultureMusicale";
 import AspectsTechniques from "./pages/AspectsTechniques";
 import FonctionsSociales from "./pages/FonctionsSociales";
+import Musicotherapie from "./pages/Musicotherapie";
 import NotFound from "./pages/NotFound";
 import Changelog from "./components/Changelog";
 
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/culture" element={<CultureMusicale />} />
             <Route path="/technique" element={<AspectsTechniques />} />
             <Route path="/societe" element={<FonctionsSociales />} />
+            <Route path="/societe/musicotherapie" element={<Musicotherapie />} />
             <Route path="/changelog" element={<Changelog />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

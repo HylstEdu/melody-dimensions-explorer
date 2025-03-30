@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { 
@@ -95,6 +94,28 @@ const changelogData: ChangelogItem[] = [
       {
         type: "update",
         description: "Mise à jour du changelog pour refléter les derniers développements"
+      }
+    ]
+  },
+  {
+    date: "26 Novembre 2024",
+    version: "0.4.0",
+    changes: [
+      {
+        type: "feature",
+        description: "Ajout de la page Musicothérapie avec informations détaillées sur les approches et applications"
+      },
+      {
+        type: "feature",
+        description: "Implémentation du fil d'Ariane (breadcrumbs) pour améliorer la navigation"
+      },
+      {
+        type: "improvement",
+        description: "Amélioration de la structure du site avec des liens 'En savoir plus' vers des sections détaillées"
+      },
+      {
+        type: "update",
+        description: "Mise à jour du système de navigation pour faciliter l'accès aux sous-sections"
       }
     ]
   }

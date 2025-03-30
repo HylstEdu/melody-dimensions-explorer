@@ -1,7 +1,7 @@
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
   <!-- Background -->
-  <rect x="0" y="0" width="800" height="500" fill="#f8f9fa"/>
+  <rect x="0" y="0" width="800" height="550" fill="#f8f9fa"/>
   
   <!-- Source -->
   <circle cx="100" cy="250" r="40" fill="#8B5CF6"/>
@@ -61,7 +61,7 @@
     <circle cx="435" cy="265" r="3"/>
   </g>
   
-  <!-- Legend -->
-  <text x="100" y="450" font-family="Arial" font-size="18" fill="#333" font-weight="bold">Propagation des ondes sonores dans l'air</text>
-  <text x="100" y="480" font-family="Arial" font-size="14" fill="#333">Les zones de compression et de raréfaction se déplacent loin de la source</text>
+  <!-- Legend moved to the bottom with more space -->
+  <text x="100" y="470" font-family="Arial" font-size="18" fill="#333" font-weight="bold">Propagation des ondes sonores dans l'air</text>
+  <text x="100" y="500" font-family="Arial" font-size="14" fill="#333">Les zones de compression et de raréfaction se déplacent loin de la source</text>
 </svg>

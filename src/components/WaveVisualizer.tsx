@@ -16,6 +16,7 @@ import {
   XAxis,
   YAxis
 } from "recharts";
+import { toast } from "sonner";
 
 interface WaveVisualizerProps {
   initialFrequency?: number;
@@ -74,7 +75,16 @@ const WaveVisualizer = ({
   const playSound = () => {
     try {
       // Create audio context if it doesn't exist
-      const ctx = audioContext || new (window.AudioContext || (window as any).webkitAudioContext)();
+      let ctx;
+      
+      try {
+        ctx = audioContext || new (window.AudioContext || (window as any).webkitAudioContext)();
+      } catch (error) {
+        console.error("Failed to create AudioContext:", error);
+        toast.error("Impossible de créer un contexte audio. Vérifiez que votre navigateur supporte l'API Web Audio.");
+        return;
+      }
+      
       setAudioContext(ctx);
       
       // Create oscillator
@@ -93,15 +103,23 @@ const WaveVisualizer = ({
       
       setOscillator(osc);
       setGainNode(gain);
+      
+      toast.success("Lecture en cours");
     } catch (error) {
       console.error("Audio playback error:", error);
+      toast.error("Erreur lors de la lecture audio");
       setIsPlaying(false);
     }
   };
 
   const stopSound = () => {
     if (oscillator) {
-      oscillator.stop();
+      try {
+        oscillator.stop();
+        toast.info("Lecture arrêtée");
+      } catch (error) {
+        console.error("Error stopping oscillator:", error);
+      }
       setOscillator(null);
     }
   };
@@ -111,7 +129,11 @@ const WaveVisualizer = ({
     return () => {
       stopSound();
       if (audioContext) {
-        audioContext.close();
+        try {
+          audioContext.close();
+        } catch (error) {
+          console.error("Error closing audio context:", error);
+        }
       }
     };
   }, []);
@@ -179,7 +201,8 @@ const WaveVisualizer = ({
               <Button 
                 onClick={togglePlay} 
                 variant="outline"
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 w-40"
+                type="button"
               >
                 {isPlaying ? (
                   <>

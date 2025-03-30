@@ -8,7 +8,7 @@ import {
   Waves, 
   RepeatIcon,
   ArrowLeftIcon,
-  Waveform
+  AudioWaveform
 } from "lucide-react";
 
 const Phenomenes = () => {
@@ -58,7 +58,7 @@ const Phenomenes = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   <div className="relative w-full max-w-xs">
-                    <Waveform className="w-full h-auto text-acoustic-600 animate-pulse-slow" />
+                    <AudioWaveform className="w-full h-auto text-acoustic-600 animate-pulse-slow" />
                     <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2">
                       <div className="w-8 h-8 bg-acoustic-600 rounded-full animate-wave"></div>
                     </div>
@@ -187,8 +187,8 @@ const Phenomenes = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center">
                   <div className="relative w-full max-w-xs">
-                    <Waveform className="w-full h-auto text-acoustic-600" />
-                    <Waveform className="w-full h-auto text-acoustic-400 absolute top-0 left-0 opacity-50" />
+                    <AudioWaveform className="w-full h-auto text-acoustic-600" />
+                    <AudioWaveform className="w-full h-auto text-acoustic-400 absolute top-0 left-0 opacity-50" />
                   </div>
                 </div>
               </div>

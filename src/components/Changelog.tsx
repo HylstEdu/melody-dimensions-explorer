@@ -155,7 +155,7 @@ const getBadgeVariant = (type: ChangeType) => {
     case "update":
       return "outline";
     case "docs":
-      return "blue";
+      return "secondary"; // Changed from "blue" to "secondary" as "blue" is not a valid variant
     default:
       return "default";
   }

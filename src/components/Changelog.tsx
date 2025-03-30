@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { 
@@ -9,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-type ChangeType = "feature" | "fix" | "improvement" | "update";
+type ChangeType = "feature" | "fix" | "improvement" | "update" | "docs";
 
 interface ChangelogItem {
   date: string;
@@ -118,6 +119,28 @@ const changelogData: ChangelogItem[] = [
         description: "Mise à jour du système de navigation pour faciliter l'accès aux sous-sections"
       }
     ]
+  },
+  {
+    date: "27 Novembre 2024",
+    version: "0.5.0",
+    changes: [
+      {
+        type: "docs",
+        description: "Création du fichier melody_dimensions_explorer.md avec documentation détaillée du projet"
+      },
+      {
+        type: "feature",
+        description: "Amélioration du composant BreadcrumbNav avec des descriptions pour chaque section"
+      },
+      {
+        type: "improvement",
+        description: "Optimisation de la navigation avec un fil d'Ariane sticky pour une meilleure expérience utilisateur"
+      },
+      {
+        type: "update",
+        description: "Enrichissement des méta-informations pour les sections et sous-sections"
+      }
+    ]
   }
 ];
 
@@ -131,6 +154,8 @@ const getBadgeVariant = (type: ChangeType) => {
       return "secondary";
     case "update":
       return "outline";
+    case "docs":
+      return "blue";
     default:
       return "default";
   }
@@ -173,6 +198,6 @@ const Changelog: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Changelog;

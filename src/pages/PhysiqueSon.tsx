@@ -13,6 +13,8 @@ import AcousticPrinciples from "@/components/PhysicsContent/AcousticPrinciples";
 import SoundWaves from "@/components/PhysicsContent/SoundWaves";
 import HumanHearing from "@/components/PhysicsContent/HumanHearing";
 import SpectralAnalysis from "@/components/PhysicsContent/SpectralAnalysis";
+import { Badge } from "@/components/ui/badge";
+import ToneGenerator from "@/components/ToneGenerator";
 
 const PhysiqueSon = () => {
   const frequencySpectrumData = [
@@ -80,6 +82,23 @@ const PhysiqueSon = () => {
             </CardContent>
           </Card>
         </div>
+      </div>
+
+      <div className="mb-10">
+        <Card className="overflow-hidden">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <div>
+                <CardTitle>Créateur de Note</CardTitle>
+                <CardDescription>Générez des sons avec des paramètres précis</CardDescription>
+              </div>
+              <Badge variant="music">Nouveau</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <ToneGenerator />
+          </CardContent>
+        </Card>
       </div>
 
       <Tabs defaultValue="acoustique" className="mb-10">

@@ -24,6 +24,7 @@ const AudioPlayer = ({ src, title, description }: AudioPlayerProps) => {
     audio.preload = "auto";
     audio.volume = volume / 100;
     
+    // Add event listeners
     audio.addEventListener("canplaythrough", () => {
       setIsLoaded(true);
     });
@@ -39,6 +40,11 @@ const AudioPlayer = ({ src, title, description }: AudioPlayerProps) => {
     
     audioRef.current = audio;
     
+    // Force load event for testing
+    setTimeout(() => {
+      setIsLoaded(true); // Enable buttons even if file isn't loaded
+    }, 1000);
+    
     // Clean up
     return () => {
       if (audioRef.current) {
@@ -46,7 +52,7 @@ const AudioPlayer = ({ src, title, description }: AudioPlayerProps) => {
         audioRef.current.src = "";
       }
     };
-  }, [src, title]);
+  }, [src, title, volume]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -56,18 +62,38 @@ const AudioPlayer = ({ src, title, description }: AudioPlayerProps) => {
       setIsPlaying(false);
       toast.info(`Son arrêté: ${title}`);
     } else {
-      const playPromise = audioRef.current.play();
-      
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsPlaying(true);
-            toast.success(`Lecture: ${title}`);
-          })
-          .catch(error => {
-            console.error("Playback error:", error);
-            toast.error("Impossible de lire le son. Essayez d'interagir avec la page d'abord.");
-          });
+      try {
+        const playPromise = audioRef.current.play();
+        
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsPlaying(true);
+              toast.success(`Lecture: ${title}`);
+            })
+            .catch(error => {
+              console.error("Playback error:", error);
+              toast.error("Cliquez d'abord sur la page puis réessayez de lire le son.");
+              
+              // Auto-enable after user interaction
+              const enableAudio = () => {
+                document.removeEventListener('click', enableAudio);
+                if (audioRef.current) {
+                  audioRef.current.play()
+                    .then(() => {
+                      setIsPlaying(true);
+                      toast.success(`Lecture: ${title}`);
+                    })
+                    .catch(e => console.error("Still can't play:", e));
+                }
+              };
+              
+              document.addEventListener('click', enableAudio);
+            });
+        }
+      } catch (error) {
+        console.error("Audio play error:", error);
+        toast.error("Problème de lecture audio. Veuillez réessayer.");
       }
     }
   };
@@ -81,7 +107,7 @@ const AudioPlayer = ({ src, title, description }: AudioPlayerProps) => {
   };
 
   return (
-    <Card className="p-4">
+    <Card className="p-4 mb-6">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div>
@@ -93,7 +119,7 @@ const AudioPlayer = ({ src, title, description }: AudioPlayerProps) => {
             size="sm" 
             variant="outline" 
             className="h-8 w-8 p-0"
-            disabled={!isLoaded}
+            disabled={false} // Always enable button
             type="button"
           >
             {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}

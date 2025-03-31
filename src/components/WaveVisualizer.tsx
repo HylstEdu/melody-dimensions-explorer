@@ -69,7 +69,6 @@ const WaveVisualizer = ({
     } else {
       playSound();
     }
-    setIsPlaying(!isPlaying);
   };
 
   const playSound = () => {
@@ -103,12 +102,20 @@ const WaveVisualizer = ({
       
       setOscillator(osc);
       setGainNode(gain);
+      setIsPlaying(true);
       
       toast.success("Lecture en cours");
     } catch (error) {
       console.error("Audio playback error:", error);
-      toast.error("Erreur lors de la lecture audio");
-      setIsPlaying(false);
+      toast.error("Erreur lors de la lecture audio. Veuillez d'abord interagir avec la page.");
+      
+      // Auto-enable after user interaction
+      const enableAudio = () => {
+        document.removeEventListener('click', enableAudio);
+        playSound();
+      };
+      
+      document.addEventListener('click', enableAudio);
     }
   };
 
@@ -116,6 +123,7 @@ const WaveVisualizer = ({
     if (oscillator) {
       try {
         oscillator.stop();
+        setIsPlaying(false);
         toast.info("Lecture arrêtée");
       } catch (error) {
         console.error("Error stopping oscillator:", error);
@@ -151,20 +159,22 @@ const WaveVisualizer = ({
         <div className="space-y-6">
           <div className="h-40">
             <ChartContainer config={chartConfig}>
-              <LineChart data={waveData}>
-                <XAxis dataKey="x" hide />
-                <YAxis hide domain={[-100, 100]} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Line 
-                  type="monotone" 
-                  dataKey="y" 
-                  stroke="#8B5CF6" 
-                  strokeWidth={2} 
-                  dot={false} 
-                  activeDot={false}
-                  isAnimationActive={true}
-                />
-              </LineChart>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={waveData}>
+                  <XAxis dataKey="x" hide />
+                  <YAxis hide domain={[-100, 100]} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="y" 
+                    stroke="#8B5CF6" 
+                    strokeWidth={2} 
+                    dot={false} 
+                    activeDot={false}
+                    isAnimationActive={true}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </ChartContainer>
           </div>
           

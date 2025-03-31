@@ -1,10 +1,15 @@
+import { 
+  BookOpen, 
+  Music, 
+  Music2, 
+  Music3, 
+  Music4, 
+  Disc, 
+  Radio, 
+  FileAudio, 
+  Mic2 
+} from 'lucide-react';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { BookOpen, Music, Music2, Music3, Music4, Disc, Radio, FileAudio, Mic2, Violin } from "lucide-react";
 import GenreCard from "@/components/music/GenreCard";
 import TimelineCard from "@/components/music/TimelineCard";
 import MusicalPeriodTab from "@/components/music/MusicalPeriodTab";
@@ -62,7 +67,7 @@ const CultureMusicale = () => {
       title: "Baroque",
       description: "Style orné avec contrepoints complexes et basse continue",
       timeframe: "1600-1750",
-      icon: <Violin className="h-5 w-5" />,
+      icon: <Music className="h-5 w-5" />,
       characteristics: [
         { title: "Ornementation", description: "Trilles, mordants et fioritures abondantes" },
         { title: "Basse continue", description: "Ligne de basse sur laquelle l'harmonie est construite" }
@@ -78,7 +83,7 @@ const CultureMusicale = () => {
       title: "Classique",
       description: "Clarté, équilibre et structures formelles",
       timeframe: "1750-1820",
-      icon: <Violin className="h-5 w-5" />,
+      icon: <Music2 className="h-5 w-5" />,
       characteristics: [
         { title: "Forme sonate", description: "Structure en exposition, développement et réexposition" },
         { title: "Orchestration", description: "Ensembles standardisés avec rôles définis" }
@@ -94,7 +99,7 @@ const CultureMusicale = () => {
       title: "Romantique",
       description: "Expression émotionnelle intense et individualisme",
       timeframe: "1820-1900",
-      icon: <Violin className="h-5 w-5" />,
+      icon: <Music3 className="h-5 w-5" />,
       characteristics: [
         { title: "Expressivité", description: "Émotions et sentiments personnels" },
         { title: "Nationalisme", description: "Incorporation d'éléments folkloriques" }
@@ -110,7 +115,7 @@ const CultureMusicale = () => {
       title: "Impressionniste",
       description: "Atmosphères, couleurs sonores et fluidité",
       timeframe: "1875-1925",
-      icon: <Violin className="h-5 w-5" />,
+      icon: <Music4 className="h-5 w-5" />,
       characteristics: [
         { title: "Harmonie", description: "Accords non-fonctionnels et modes anciens" },
         { title: "Timbre", description: "Exploration des couleurs orchestrales" }

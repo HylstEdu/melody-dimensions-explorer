@@ -1,9 +1,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
-import { Play, Pause, Volume2 } from "lucide-react";
+import { PlayIcon, PauseIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 
 interface AudioPlayerProps {
@@ -14,131 +13,121 @@ interface AudioPlayerProps {
 
 const AudioPlayer = ({ src, title, description }: AudioPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(75);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // Create audio element when component mounts
-    const audio = new Audio(src);
-    audio.preload = "auto";
-    audio.volume = volume / 100;
-    
-    // Add event listeners
-    audio.addEventListener("canplaythrough", () => {
-      setIsLoaded(true);
-    });
-    
-    audio.addEventListener("ended", () => {
-      setIsPlaying(false);
-    });
-    
-    audio.addEventListener("error", (e) => {
-      console.error("Audio error:", e);
-      toast.error(`Erreur de chargement du son: ${title}`);
-    });
-    
-    audioRef.current = audio;
-    
-    // Force load event for testing
-    setTimeout(() => {
-      setIsLoaded(true); // Enable buttons even if file isn't loaded
-    }, 1000);
-    
-    // Clean up
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.src = "";
-      }
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const setAudioData = () => {
+      setDuration(audio.duration);
     };
-  }, [src, title, volume]);
+
+    const setAudioTime = () => {
+      setCurrentTime(audio.currentTime);
+    };
+
+    const handleAudioEnd = () => {
+      setIsPlaying(false);
+      setCurrentTime(0);
+    };
+
+    const handleError = (event: ErrorEvent) => {
+      console.error("Audio error:", event);
+      toast.error("Cliquez d'abord sur la page puis réessayez de lire le son.");
+    };
+
+    // Events
+    audio.addEventListener('loadeddata', setAudioData);
+    audio.addEventListener('timeupdate', setAudioTime);
+    audio.addEventListener('ended', handleAudioEnd);
+    audio.addEventListener('error', handleError);
+
+    return () => {
+      audio.removeEventListener('loadeddata', setAudioData);
+      audio.removeEventListener('timeupdate', setAudioTime);
+      audio.removeEventListener('ended', handleAudioEnd);
+      audio.removeEventListener('error', handleError);
+    };
+  }, []);
 
   const togglePlay = () => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
     if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-      toast.info(`Son arrêté: ${title}`);
+      audio.pause();
     } else {
-      try {
-        const playPromise = audioRef.current.play();
-        
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-              toast.success(`Lecture: ${title}`);
-            })
-            .catch(error => {
-              console.error("Playback error:", error);
-              toast.error("Cliquez d'abord sur la page puis réessayez de lire le son.");
-              
-              // Auto-enable after user interaction
-              const enableAudio = () => {
-                document.removeEventListener('click', enableAudio);
-                if (audioRef.current) {
-                  audioRef.current.play()
-                    .then(() => {
-                      setIsPlaying(true);
-                      toast.success(`Lecture: ${title}`);
-                    })
-                    .catch(e => console.error("Still can't play:", e));
-                }
-              };
-              
-              document.addEventListener('click', enableAudio);
-            });
-        }
-      } catch (error) {
-        console.error("Audio play error:", error);
-        toast.error("Problème de lecture audio. Veuillez réessayer.");
+      // Create a user interaction promise if needed
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Audio started playing successfully
+          })
+          .catch(error => {
+            console.error("Playback error:", error);
+            toast.error("Cliquez d'abord sur la page puis réessayez de lire le son.");
+          });
       }
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleTimeChange = (value: number[]) => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.currentTime = value[0];
+      setCurrentTime(value[0]);
     }
   };
 
-  const handleVolumeChange = (value: number[]) => {
-    const newVolume = value[0];
-    setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume / 100;
-    }
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return "0:00";
+    
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+    return `${minutes}:${seconds}`;
   };
 
   return (
-    <Card className="p-4 mb-6">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <div>
-            <h4 className="font-medium text-sm">{title}</h4>
-            {description && <p className="text-xs text-muted-foreground">{description}</p>}
-          </div>
-          <Button 
-            onClick={togglePlay} 
-            size="sm" 
-            variant="outline" 
-            className="h-8 w-8 p-0"
-            disabled={false} // Always enable button
-            type="button"
-          >
-            {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-          </Button>
-        </div>
+    <div className="border rounded-md p-3">
+      <audio ref={audioRef} src={src} preload="metadata" />
+      
+      <div className="flex items-center gap-2 mb-2">
+        <Button 
+          onClick={togglePlay} 
+          variant="secondary" 
+          size="sm" 
+          className="h-8 w-8 p-0 flex items-center justify-center"
+        >
+          {isPlaying ? <PauseIcon className="h-4 w-4" /> : <PlayIcon className="h-4 w-4" />}
+        </Button>
         
-        <div className="flex items-center gap-2">
-          <Volume2 className="h-4 w-4 text-muted-foreground" />
-          <Slider
-            value={[volume]}
-            min={0}
-            max={100}
-            step={1}
-            onValueChange={handleVolumeChange}
-            className="w-full"
-          />
+        <div className="flex-1">
+          <h4 className="text-sm font-medium">{title}</h4>
+          {description && <p className="text-xs text-muted-foreground">{description}</p>}
         </div>
       </div>
-    </Card>
+      
+      <div className="flex items-center gap-2">
+        <div className="text-xs w-8 text-muted-foreground">
+          {formatTime(currentTime)}
+        </div>
+        <Slider
+          value={[currentTime]}
+          max={duration || 100}
+          step={0.1}
+          onValueChange={(value) => handleTimeChange(value)}
+          className="flex-1"
+        />
+        <div className="text-xs w-8 text-muted-foreground">
+          {formatTime(duration)}
+        </div>
+      </div>
+    </div>
   );
 };
 

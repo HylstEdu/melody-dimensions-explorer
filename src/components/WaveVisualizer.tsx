@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { PlayIcon, PauseIcon, Volume2 } from "lucide-react";
+import { PlayIcon, PauseIcon } from "lucide-react";
 import { 
   ChartContainer,
   ChartTooltip,
@@ -21,14 +21,17 @@ import { toast } from "sonner";
 interface WaveVisualizerProps {
   initialFrequency?: number;
   initialAmplitude?: number;
+  initialPhase?: number;
 }
 
 const WaveVisualizer = ({ 
   initialFrequency = 1, 
-  initialAmplitude = 50 
+  initialAmplitude = 50,
+  initialPhase = 0
 }: WaveVisualizerProps) => {
   const [frequency, setFrequency] = useState(initialFrequency);
   const [amplitude, setAmplitude] = useState(initialAmplitude);
+  const [phase, setPhase] = useState(initialPhase);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [oscillator, setOscillator] = useState<OscillatorNode | null>(null);
@@ -40,7 +43,7 @@ const WaveVisualizer = ({
     for (let i = 0; i <= 100; i++) {
       data.push({
         x: i,
-        y: amplitude * Math.sin(frequency * i * Math.PI / 50)
+        y: amplitude * Math.sin(frequency * i * Math.PI / 50 + phase)
       });
     }
     return data;
@@ -60,7 +63,7 @@ const WaveVisualizer = ({
     if (gainNode) {
       gainNode.gain.value = amplitude / 100 * 0.3; // Scale for comfortable volume
     }
-  }, [frequency, amplitude]);
+  }, [frequency, amplitude, phase]);
 
   // Handle play/pause
   const togglePlay = () => {
@@ -108,14 +111,6 @@ const WaveVisualizer = ({
     } catch (error) {
       console.error("Audio playback error:", error);
       toast.error("Erreur lors de la lecture audio. Veuillez d'abord interagir avec la page.");
-      
-      // Auto-enable after user interaction
-      const enableAudio = () => {
-        document.removeEventListener('click', enableAudio);
-        playSound();
-      };
-      
-      document.addEventListener('click', enableAudio);
     }
   };
 
@@ -207,26 +202,40 @@ const WaveVisualizer = ({
               />
             </div>
             
-            <div className="flex justify-center">
-              <Button 
-                onClick={togglePlay} 
-                variant="outline"
-                className="flex items-center gap-2 w-40"
-                type="button"
-              >
-                {isPlaying ? (
-                  <>
-                    <PauseIcon className="h-4 w-4" />
-                    Arrêter le son
-                  </>
-                ) : (
-                  <>
-                    <PlayIcon className="h-4 w-4" />
-                    Écouter l'onde
-                  </>
-                )}
-              </Button>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <label className="text-sm font-medium">Phase: {phase.toFixed(1)} rad</label>
+                <span className="text-sm text-muted-foreground">(Décalage)</span>
+              </div>
+              <Slider
+                value={[phase]}
+                min={0}
+                max={Math.PI * 2}
+                step={0.1}
+                onValueChange={(value) => setPhase(value[0])}
+              />
             </div>
+          </div>
+          
+          <div className="flex justify-center">
+            <Button 
+              onClick={togglePlay} 
+              variant="outline"
+              className="flex items-center gap-2 w-40"
+              type="button"
+            >
+              {isPlaying ? (
+                <>
+                  <PauseIcon className="h-4 w-4" />
+                  Arrêter le son
+                </>
+              ) : (
+                <>
+                  <PlayIcon className="h-4 w-4" />
+                  Écouter l'onde
+                </>
+              )}
+            </Button>
           </div>
         </div>
       </CardContent>

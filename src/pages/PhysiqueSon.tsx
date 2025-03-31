@@ -9,6 +9,10 @@ import WaveVisualizer from "@/components/WaveVisualizer";
 import AudioPlayer from "@/components/AudioPlayer";
 import FrequencySpectrumCard from "@/components/FrequencySpectrumCard";
 import AcousticIllustration from "@/components/AcousticIllustration";
+import AcousticPrinciples from "@/components/PhysicsContent/AcousticPrinciples";
+import SoundWaves from "@/components/PhysicsContent/SoundWaves";
+import HumanHearing from "@/components/PhysicsContent/HumanHearing";
+import SpectralAnalysis from "@/components/PhysicsContent/SpectralAnalysis";
 
 const PhysiqueSon = () => {
   const frequencySpectrumData = [
@@ -35,11 +39,16 @@ const PhysiqueSon = () => {
             <CardHeader>
               <CardTitle>Visualisation interactive des ondes sonores</CardTitle>
               <CardDescription>
-                Modifiez la fréquence et l'amplitude pour explorer les caractéristiques des ondes sonores
+                Modifiez la fréquence, l'amplitude et la phase pour explorer les caractéristiques des ondes sonores
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <WaveVisualizer />
+              <div className="space-y-4">
+                <WaveVisualizer />
+                <p className="text-sm text-muted-foreground text-center">
+                  Cliquez d'abord sur la page pour activer l'audio, puis utilisez le bouton "Écouter l'onde" pour entendre le son généré
+                </p>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -65,6 +74,9 @@ const PhysiqueSon = () => {
                 title="Effet Doppler" 
                 description="Changement de fréquence perçue"
               />
+              <p className="text-sm text-muted-foreground text-center mt-4">
+                Cliquez d'abord sur la page puis réessayez de lire le son si vous rencontrez des problèmes
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -79,148 +91,19 @@ const PhysiqueSon = () => {
         </TabsList>
         
         <TabsContent value="acoustique">
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Les fondements de l'acoustique</CardTitle>
-                <CardDescription>Comprendre comment le son se comporte dans différents environnements</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p>
-                  L'acoustique est la science qui étudie le son, sa production, sa propagation et sa perception. Elle joue un rôle fondamental dans la compréhension de la musique.
-                </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Réflexion et réverbération</h3>
-                    <p className="text-muted-foreground">
-                      Dans une salle de concert, les ondes sonores se réfléchissent sur les surfaces, créant un effet de réverbération qui enrichit le son original.
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Absorption et diffusion</h3>
-                    <p className="text-muted-foreground">
-                      Les matériaux acoustiques peuvent absorber certaines fréquences ou diffuser le son de manière plus uniforme dans l'espace.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <AcousticIllustration 
-              title="Propagation des ondes sonores"
-              description="Comment le son se déplace dans l'air"
-              imageSrc="/images/sound-waves-propagation.svg"
-              caption="Illustration de la compression et de la raréfaction de l'air lors de la propagation sonore"
-            />
-          </div>
+          <AcousticPrinciples />
         </TabsContent>
         
         <TabsContent value="ondes">
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Caractéristiques des ondes sonores</CardTitle>
-                <CardDescription>Fréquence, amplitude, timbre et leurs effets sur la musique</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p>
-                  Les ondes sonores sont des vibrations qui se propagent dans un milieu (air, eau, solides). Leurs caractéristiques déterminent ce que nous entendons.
-                </p>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Fréquence (Hz)</h3>
-                    <p className="text-muted-foreground">
-                      Détermine la hauteur du son. Plus la fréquence est élevée, plus le son est aigu.
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Amplitude (dB)</h3>
-                    <p className="text-muted-foreground">
-                      Détermine le volume sonore. Une plus grande amplitude correspond à un son plus fort.
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Timbre</h3>
-                    <p className="text-muted-foreground">
-                      La "couleur" du son, ce qui nous permet de distinguer deux instruments jouant la même note.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <AcousticIllustration 
-              title="Formes d'ondes fondamentales"
-              description="Les différents types d'ondes en acoustique"
-              imageSrc="/images/waveforms.svg"
-              caption="De haut en bas: onde sinusoïdale, carrée, triangulaire et en dents de scie"
-            />
-          </div>
+          <SoundWaves />
         </TabsContent>
         
         <TabsContent value="audition">
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>L'audition humaine</CardTitle>
-                <CardDescription>Comment notre cerveau perçoit et interprète les sons</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p>
-                  L'oreille humaine est un organe sensoriel complexe capable de détecter une large gamme de fréquences sonores et de les convertir en signaux neurologiques interprétables par notre cerveau.
-                </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Anatomie de l'oreille</h3>
-                    <p className="text-muted-foreground">
-                      L'oreille se divise en trois parties: externe (pavillon, conduit auditif), moyenne (tympan, osselets) et interne (cochlée, cellules ciliées).
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold">Perception des fréquences</h3>
-                    <p className="text-muted-foreground">
-                      L'oreille humaine peut généralement percevoir des sons entre 20 Hz et 20 000 Hz, avec une sensibilité maximale entre 2 000 et 5 000 Hz.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <AcousticIllustration 
-              title="L'anatomie de l'oreille humaine"
-              description="Détails des composantes de l'oreille"
-              imageSrc="/images/ear-anatomy.svg"
-              caption="Les trois parties de l'oreille: externe, moyenne et interne"
-            />
-          </div>
+          <HumanHearing />
         </TabsContent>
         
         <TabsContent value="spectre">
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Analyse spectrale du son</CardTitle>
-                <CardDescription>Décomposition des sons en leurs fréquences constitutives</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="mb-4">
-                  L'analyse spectrale décompose un son complexe en ses fréquences constitutives, révélant sa composition harmonique. Cette technique est essentielle en acoustique musicale et en traitement audio.
-                </p>
-                <div className="space-y-2">
-                  <h3 className="text-lg font-semibold">Série de Fourier</h3>
-                  <p className="text-muted-foreground">
-                    Toute onde sonore périodique peut être décomposée en une somme de sinusoïdes de fréquences multiples de la fondamentale. C'est le principe mathématique derrière la décomposition spectrale.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <FrequencySpectrumCard 
-              title="Spectre de fréquences" 
-              description="Répartition de l'énergie selon les fréquences"
-              data={frequencySpectrumData}
-            />
-          </div>
+          <SpectralAnalysis />
         </TabsContent>
       </Tabs>
       

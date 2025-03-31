@@ -10,6 +10,12 @@ import {
   Mic2 
 } from 'lucide-react';
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+
 import GenreCard from "@/components/music/GenreCard";
 import TimelineCard from "@/components/music/TimelineCard";
 import MusicalPeriodTab from "@/components/music/MusicalPeriodTab";

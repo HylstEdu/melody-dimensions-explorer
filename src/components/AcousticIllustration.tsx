@@ -7,14 +7,25 @@ interface AcousticIllustrationProps {
   description?: string;
   imageSrc: string;
   caption?: string;
+  aspectRatio?: "auto" | "square" | "video" | "wide";
 }
 
 const AcousticIllustration = ({
   title,
   description,
   imageSrc,
-  caption
+  caption,
+  aspectRatio = "auto"
 }: AcousticIllustrationProps) => {
+  const getAspectRatioClass = () => {
+    switch (aspectRatio) {
+      case "square": return "aspect-square";
+      case "video": return "aspect-video";
+      case "wide": return "aspect-[16/9]";
+      default: return "aspect-auto";
+    }
+  };
+
   return (
     <Card className="overflow-hidden">
       <CardHeader>
@@ -22,15 +33,15 @@ const AcousticIllustration = ({
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent className="p-0">
-        <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden">
+        <div className={`${getAspectRatioClass()} bg-muted flex items-center justify-center overflow-hidden p-4`}>
           <img 
             src={imageSrc} 
             alt={title}
-            className="w-full h-auto object-contain"
+            className="max-w-full max-h-full object-contain"
           />
         </div>
         {caption && (
-          <div className="p-4 text-sm text-muted-foreground italic text-center">
+          <div className="p-6 text-sm text-muted-foreground italic text-center">
             {caption}
           </div>
         )}

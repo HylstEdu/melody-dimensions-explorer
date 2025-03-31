@@ -149,97 +149,103 @@ const WaveVisualizer = ({
   };
 
   return (
-    <Card className="overflow-hidden">
-      <CardContent className="p-6">
-        <div className="space-y-6">
-          <div className="h-40">
-            <ChartContainer config={chartConfig}>
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={waveData}>
-                  <XAxis dataKey="x" hide />
-                  <YAxis hide domain={[-100, 100]} />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="y" 
-                    stroke="#8B5CF6" 
-                    strokeWidth={2} 
-                    dot={false} 
-                    activeDot={false}
-                    isAnimationActive={true}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </div>
-          
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <label className="text-sm font-medium">Fréquence: {frequency.toFixed(1)} Hz</label>
-                <span className="text-sm text-muted-foreground">(Hauteur)</span>
-              </div>
-              <Slider
-                value={[frequency]}
-                min={0.5}
-                max={5}
-                step={0.1}
-                onValueChange={(value) => setFrequency(value[0])}
-              />
+    <div className="space-y-6">
+      <Card className="overflow-hidden">
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            <div className="h-48">
+              <ChartContainer config={chartConfig}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={waveData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                    <XAxis dataKey="x" hide />
+                    <YAxis hide domain={[-100, 100]} />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Line 
+                      type="monotone" 
+                      dataKey="y" 
+                      stroke="#8B5CF6" 
+                      strokeWidth={2} 
+                      dot={false} 
+                      activeDot={false}
+                      isAnimationActive={true}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartContainer>
             </div>
             
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <label className="text-sm font-medium">Amplitude: {amplitude.toFixed(0)}%</label>
-                <span className="text-sm text-muted-foreground">(Volume)</span>
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <label className="text-sm font-medium">Fréquence: {frequency.toFixed(1)} Hz</label>
+                  <span className="text-sm text-muted-foreground">(Hauteur)</span>
+                </div>
+                <Slider
+                  value={[frequency]}
+                  min={0.5}
+                  max={5}
+                  step={0.1}
+                  onValueChange={(value) => setFrequency(value[0])}
+                />
               </div>
-              <Slider
-                value={[amplitude]}
-                min={5}
-                max={100}
-                step={1}
-                onValueChange={(value) => setAmplitude(value[0])}
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <label className="text-sm font-medium">Phase: {phase.toFixed(1)} rad</label>
-                <span className="text-sm text-muted-foreground">(Décalage)</span>
+              
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <label className="text-sm font-medium">Amplitude: {amplitude.toFixed(0)}%</label>
+                  <span className="text-sm text-muted-foreground">(Volume)</span>
+                </div>
+                <Slider
+                  value={[amplitude]}
+                  min={5}
+                  max={100}
+                  step={1}
+                  onValueChange={(value) => setAmplitude(value[0])}
+                />
               </div>
-              <Slider
-                value={[phase]}
-                min={0}
-                max={Math.PI * 2}
-                step={0.1}
-                onValueChange={(value) => setPhase(value[0])}
-              />
+              
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <label className="text-sm font-medium">Phase: {phase.toFixed(1)} rad</label>
+                  <span className="text-sm text-muted-foreground">(Décalage)</span>
+                </div>
+                <Slider
+                  value={[phase]}
+                  min={0}
+                  max={Math.PI * 2}
+                  step={0.1}
+                  onValueChange={(value) => setPhase(value[0])}
+                />
+              </div>
             </div>
           </div>
-          
-          <div className="flex justify-center">
-            <Button 
-              onClick={togglePlay} 
-              variant="outline"
-              className="flex items-center gap-2 w-40"
-              type="button"
-            >
-              {isPlaying ? (
-                <>
-                  <PauseIcon className="h-4 w-4" />
-                  Arrêter le son
-                </>
-              ) : (
-                <>
-                  <PlayIcon className="h-4 w-4" />
-                  Écouter l'onde
-                </>
-              )}
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+      
+      <div className="flex justify-center mt-4">
+        <Button 
+          onClick={togglePlay} 
+          variant="outline"
+          className="flex items-center gap-2 w-40"
+          type="button"
+        >
+          {isPlaying ? (
+            <>
+              <PauseIcon className="h-4 w-4" />
+              Arrêter le son
+            </>
+          ) : (
+            <>
+              <PlayIcon className="h-4 w-4" />
+              Écouter l'onde
+            </>
+          )}
+        </Button>
+      </div>
+      
+      <p className="text-sm text-muted-foreground text-center">
+        Cliquez d'abord sur la page pour activer l'audio, puis utilisez le bouton "Écouter l'onde" pour entendre le son généré
+      </p>
+    </div>
   );
 };
 

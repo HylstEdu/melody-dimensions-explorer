@@ -1,330 +1,204 @@
-import { 
-  BookOpen, 
-  Music, 
-  Music2, 
-  Music3, 
-  Music4, 
-  Disc, 
-  Radio, 
-  FileAudio, 
-  Mic2 
-} from 'lucide-react';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
-import GenreCard from "@/components/music/GenreCard";
-import TimelineCard from "@/components/music/TimelineCard";
+import { MusicIcon, BookOpen, Globe, Clock } from "lucide-react";
+import GenreGridSection from "@/components/music/GenreGridSection";
 import MusicalPeriodTab from "@/components/music/MusicalPeriodTab";
 import MusicInfluenceChart from "@/components/music/MusicInfluenceChart";
 
 const CultureMusicale = () => {
-  // Données pour la carte d'influence des genres musicaux
-  const genresInfluence = [
-    { id: "blues", name: "Blues", description: "1890-1950", color: "#0EA5E9" },
-    { id: "jazz", name: "Jazz", description: "1920-présent", color: "#8B5CF6", influences: ["blues"] },
-    { id: "rock", name: "Rock", description: "1950-présent", color: "#F97316", influences: ["blues", "jazz"] },
-    { id: "soul", name: "Soul", description: "1950-1980", color: "#D946EF", influences: ["blues", "gospel"] },
-    { id: "funk", name: "Funk", description: "1960-1980", color: "#10B981", influences: ["jazz", "soul"] },
-    { id: "disco", name: "Disco", description: "1970-1980", color: "#FBBF24", influences: ["funk", "soul"] },
-    { id: "hiphop", name: "Hip-hop", description: "1970-présent", color: "#EC4899", influences: ["funk", "disco"] },
-    { id: "gospel", name: "Gospel", description: "1930-présent", color: "#6366F1", influences: ["blues"] }
-  ];
-
-  // Données pour les périodes classiques
-  const classicalTimelineEvents = [
-    {
-      year: "1600-1750",
-      title: "Période baroque",
-      description: "Développement de la basse continue, ornementation abondante",
-      icon: <Music className="h-5 w-5" />
-    },
-    {
-      year: "1750-1820",
-      title: "Période classique",
-      description: "Émergence de la forme sonate et de la symphonie moderne",
-      icon: <Music2 className="h-5 w-5" />
-    },
-    {
-      year: "1820-1900",
-      title: "Période romantique",
-      description: "Expressivité émotionnelle et nationalisme musical",
-      icon: <Music3 className="h-5 w-5" />
-    },
-    {
-      year: "1900-1945",
-      title: "Moderne précoce",
-      description: "Rupture avec la tonalité traditionnelle",
-      icon: <Music4 className="h-5 w-5" />
-    },
-    {
-      year: "1945-présent",
-      title: "Contemporain",
-      description: "Expérimentation de nouvelles techniques et technologies",
-      icon: <FileAudio className="h-5 w-5" />
-    }
-  ];
-
+  // Classical music genres
   const classicalGenres = [
     {
-      title: "Baroque",
-      description: "Style orné avec contrepoints complexes et basse continue",
+      name: "Musique Baroque",
+      description: "Période marquée par une complexité harmonique et l'utilisation du contrepoint",
       timeframe: "1600-1750",
-      icon: <Music className="h-5 w-5" />,
-      characteristics: [
-        { title: "Ornementation", description: "Trilles, mordants et fioritures abondantes" },
-        { title: "Basse continue", description: "Ligne de basse sur laquelle l'harmonie est construite" }
+      artists: ["Jean-Sébastien Bach", "Antonio Vivaldi", "Georg Friedrich Haendel"],
+      keyCharacteristics: [
+        "Utilisation intensive du contrepoint",
+        "Ornementation élaborée",
+        "Basse continue"
       ],
-      artists: [
-        { name: "J.S. Bach", description: "Maître du contrepoint" },
-        { name: "Antonio Vivaldi", description: "Les Quatre Saisons" },
-        { name: "G.F. Händel", description: "Musique d'apparat et oratorios" }
-      ],
-      linkUrl: "/culture/classique/baroque"
+      instruments: "Clavecin, violon baroque, hautbois baroque, viole de gambe",
+      subgenres: ["Concerto grosso", "Oratorio", "Suite baroque"]
     },
     {
-      title: "Classique",
-      description: "Clarté, équilibre et structures formelles",
+      name: "Classicisme",
+      description: "Période caractérisée par l'élégance, la clarté et l'équilibre",
       timeframe: "1750-1820",
-      icon: <Music2 className="h-5 w-5" />,
-      characteristics: [
-        { title: "Forme sonate", description: "Structure en exposition, développement et réexposition" },
-        { title: "Orchestration", description: "Ensembles standardisés avec rôles définis" }
+      artists: ["Wolfgang Amadeus Mozart", "Ludwig van Beethoven", "Joseph Haydn"],
+      keyCharacteristics: [
+        "Forme sonate",
+        "Clarté harmonique", 
+        "Équilibre architectural",
+        "Symétrie des phrases"
       ],
-      artists: [
-        { name: "W.A. Mozart", description: "Génie polyvalent et prolifique" },
-        { name: "Ludwig van Beethoven", description: "Transition vers le romantisme" },
-        { name: "Joseph Haydn", description: "Père de la symphonie" }
-      ],
-      linkUrl: "/culture/classique/periode-classique"
+      instruments: "Piano-forte, instruments à vents, quatuor à cordes",
+      subgenres: ["Symphonie classique", "Sonate classique", "Quatuor à cordes"]
     },
     {
-      title: "Romantique",
-      description: "Expression émotionnelle intense et individualisme",
-      timeframe: "1820-1900",
-      icon: <Music3 className="h-5 w-5" />,
-      characteristics: [
-        { title: "Expressivité", description: "Émotions et sentiments personnels" },
-        { title: "Nationalisme", description: "Incorporation d'éléments folkloriques" }
+      name: "Romantisme",
+      description: "Expression intense des émotions et accent sur l'individualité",
+      timeframe: "1800-1910",
+      artists: ["Frédéric Chopin", "Franz Liszt", "Piotr Ilitch Tchaïkovski"],
+      keyCharacteristics: [
+        "Expression émotionnelle intense",
+        "Virtuosité instrumentale",
+        "Exploration de thèmes nationaux",
+        "Programmes narratifs"
       ],
-      artists: [
-        { name: "Frédéric Chopin", description: "Poète du piano" },
-        { name: "Richard Wagner", description: "Drames musicaux et leitmotivs" },
-        { name: "Piotr Ilitch Tchaïkovski", description: "Mélodies mémorables" }
-      ],
-      linkUrl: "/culture/classique/romantique"
+      instruments: "Piano moderne, orchestre symphonique élargi",
+      subgenres: ["Poème symphonique", "Drame musical", "Nocturne"]
     },
-    {
-      title: "Impressionniste",
-      description: "Atmosphères, couleurs sonores et fluidité",
-      timeframe: "1875-1925",
-      icon: <Music4 className="h-5 w-5" />,
-      characteristics: [
-        { title: "Harmonie", description: "Accords non-fonctionnels et modes anciens" },
-        { title: "Timbre", description: "Exploration des couleurs orchestrales" }
-      ],
-      artists: [
-        { name: "Claude Debussy", description: "Innovateur harmonique" },
-        { name: "Maurice Ravel", description: "Orchestrateur brillant" },
-        { name: "Erik Satie", description: "Minimalisme avant-gardiste" }
-      ],
-      linkUrl: "/culture/classique/impressionnisme"
-    }
   ];
 
-  // Données pour les genres populaires
-  const popularTimelineEvents = [
-    {
-      year: "1920-1950",
-      title: "Jazz et Blues",
-      description: "Émergence des styles fondateurs de la musique populaire moderne",
-      icon: <Disc className="h-5 w-5" />
-    },
-    {
-      year: "1950-1970",
-      title: "Rock'n'roll et Soul",
-      description: "L'âge d'or du rock et la naissance de la soul music",
-      icon: <Radio className="h-5 w-5" />
-    },
-    {
-      year: "1970-1990",
-      title: "Disco, Funk et Hip-hop",
-      description: "Diversification des genres et naissance du rap",
-      icon: <Mic2 className="h-5 w-5" />
-    },
-    {
-      year: "1990-2010",
-      title: "Pop globale et électronique",
-      description: "Mondialisation et démocratisation de la production musicale",
-      icon: <Music4 className="h-5 w-5" />
-    },
-    {
-      year: "2010-présent",
-      title: "Streaming et hybridation",
-      description: "Fusion des genres et nouveaux modes de consommation",
-      icon: <FileAudio className="h-5 w-5" />
-    }
-  ];
-
+  // Popular music genres
   const popularGenres = [
     {
-      title: "Jazz",
-      description: "Improvisation, swing et créativité collective",
-      timeframe: "1920-présent",
-      imageSrc: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      characteristics: [
-        { title: "Improvisation", description: "Solos spontanés sur des progressions d'accords" },
-        { title: "Swing", description: "Rythme ternaire caractéristique" }
+      name: "Jazz",
+      description: "Genre musical né aux États-Unis caractérisé par l'improvisation et le swing",
+      timeframe: "Début du 20ème siècle - présent",
+      artists: ["Louis Armstrong", "Miles Davis", "Ella Fitzgerald", "Duke Ellington"],
+      keyCharacteristics: [
+        "Improvisation",
+        "Swing",
+        "Blue notes",
+        "Polyrythmies",
+        "Interactions entre musiciens"
       ],
-      artists: [
-        { name: "Louis Armstrong", description: "Trompettiste pionnier" },
-        { name: "Duke Ellington", description: "Compositeur et chef d'orchestre" },
-        { name: "Miles Davis", description: "Innovateur constant" }
-      ],
-      linkUrl: "/culture/populaire/jazz"
+      instruments: "Saxophone, trompette, piano, contrebasse, batterie",
+      subgenres: ["Bebop", "Cool jazz", "Free jazz", "Fusion", "Latin jazz"]
     },
     {
-      title: "Rock",
-      description: "Énergie, amplification et rébellion",
-      timeframe: "1950-présent",
-      imageSrc: "https://images.unsplash.com/photo-1598387993441-a364f854c3a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      characteristics: [
-        { title: "Instruments", description: "Guitares électriques, basse, batterie" },
-        { title: "Attitude", description: "Esprit rebelle et énergie brute" }
+      name: "Rock",
+      description: "Genre musical dérivé du rock 'n' roll et du blues, caractérisé par des guitares amplifiées",
+      timeframe: "Années 1950 - présent",
+      artists: ["The Beatles", "Led Zeppelin", "Queen", "Pink Floyd"],
+      keyCharacteristics: [
+        "Guitares électriques amplifiées",
+        "Rythmique puissante",
+        "Structure couplet-refrain",
+        "Énergie et attitude rebelle"
       ],
-      artists: [
-        { name: "The Beatles", description: "Révolution musicale des années 60" },
-        { name: "Led Zeppelin", description: "Pionniers du hard rock" },
-        { name: "Nirvana", description: "Figures du grunge" }
-      ],
-      linkUrl: "/culture/populaire/rock"
+      instruments: "Guitare électrique, basse, batterie, clavier",
+      subgenres: ["Hard rock", "Prog rock", "Punk rock", "Indie rock", "Alternatif"]
     },
     {
-      title: "Hip-hop",
-      description: "Expression urbaine, rythmes et poésie parlée",
-      timeframe: "1970-présent",
-      imageSrc: "https://images.unsplash.com/photo-1471478331774-77ffc3248de3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      characteristics: [
-        { title: "Rap", description: "Paroles rythmées sur des beats" },
-        { title: "Sampling", description: "Réutilisation de fragments musicaux existants" }
+      name: "Hip-Hop",
+      description: "Mouvement culturel et musical né dans le Bronx, mêlant rythmes et paroles débitées",
+      timeframe: "Fin des années 1970 - présent",
+      artists: ["Grandmaster Flash", "Tupac Shakur", "Jay-Z", "Nas"],
+      keyCharacteristics: [
+        "Samples et beats",
+        "Flow rythmique des paroles",
+        "Narration urbaine",
+        "Engagement social et politique",
+        "Techniques de DJ"
       ],
-      artists: [
-        { name: "Grandmaster Flash", description: "Pionnier du DJ'ing" },
-        { name: "Tupac Shakur", description: "Icône du rap West Coast" },
-        { name: "Kendrick Lamar", description: "Artiste contemporain acclamé" }
-      ],
-      linkUrl: "/culture/populaire/hip-hop"
+      instruments: "Platines, samplers, boîtes à rythmes, synthétiseurs",
+      subgenres: ["Old school", "Gangsta rap", "Trap", "Conscious rap", "Cloud rap"]
     },
-    {
-      title: "Électronique",
-      description: "Sons synthétisés et production assistée par ordinateur",
-      timeframe: "1970-présent",
-      imageSrc: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      characteristics: [
-        { title: "Synthétiseurs", description: "Création de sons électroniques" },
-        { title: "Rythme", description: "Beats répétitifs et structures dansantes" }
-      ],
-      artists: [
-        { name: "Kraftwerk", description: "Pionniers allemands" },
-        { name: "Daft Punk", description: "Duo français emblématique" },
-        { name: "Aphex Twin", description: "Producteur expérimental" }
-      ],
-      linkUrl: "/culture/populaire/electronique"
-    }
   ];
 
-  // Données pour les musiques du monde
-  const worldMusicTimelineEvents = [
+  // World music genres
+  const worldGenres = [
     {
-      year: "Traditions anciennes",
-      title: "Racines culturelles",
-      description: "Traditions orales et instruments acoustiques",
-      icon: <Music className="h-5 w-5" />
+      name: "Flamenco",
+      description: "Expression musicale et dansée de l'Andalousie, mêlant influences gitanes et arabes",
+      timeframe: "18ème siècle - présent",
+      artists: ["Paco de Lucía", "Camarón de la Isla", "Lole y Manuel"],
+      keyCharacteristics: [
+        "Chant expressif (cante)",
+        "Guitare virtuose",
+        "Danse rythmique (baile)",
+        "Palmas (claquements de mains)",
+        "Structure rythmique complexe"
+      ],
+      instruments: "Guitare flamenca, cajón, palmas",
+      subgenres: ["Soleá", "Bulería", "Seguiriya", "Fandango"]
     },
     {
-      year: "1950-1980",
-      title: "Visibilité internationale",
-      description: "Premiers enregistrements et tournées mondiales",
-      icon: <Disc className="h-5 w-5" />
+      name: "Musique Traditionnelle Chinoise",
+      description: "Tradition musicale millénaire basée sur la pentatonique et l'harmonie cosmique",
+      timeframe: "Antiquité - présent",
+      artists: ["Liu Fang", "Wu Man", "Guo Gan"],
+      keyCharacteristics: [
+        "Gammes pentatoniques",
+        "Ornementation délicate",
+        "Représentation de la nature",
+        "Philosophie taoïste de l'harmonie"
+      ],
+      instruments: "Erhu, guzheng, pipa, dizi, yangqin",
+      subgenres: ["Musique de cour", "Opéra chinois", "Musique folklorique"]
     },
     {
-      year: "1980-2000",
-      title: "World Music",
-      description: "Émergence du terme et popularisation",
-      icon: <Radio className="h-5 w-5" />
+      name: "Reggae",
+      description: "Genre musical jamaïcain aux rythmes syncopés et messages spirituels",
+      timeframe: "Années 1960 - présent",
+      artists: ["Bob Marley", "Peter Tosh", "Jimmy Cliff", "Burning Spear"],
+      keyCharacteristics: [
+        "Rythme accentué sur le temps faible (offbeat)",
+        "Basse proéminente",
+        "Thèmes spirituels et sociaux",
+        "Tempo modéré",
+        "Connection au rastafari"
+      ],
+      instruments: "Guitare, basse, batterie, orgue, cuivres",
+      subgenres: ["Dub", "Dancehall", "Roots reggae", "Ska", "Rocksteady"]
     },
-    {
-      year: "2000-présent",
-      title: "Fusions globales",
-      description: "Collaborations transculturelles et hybridation",
-      icon: <FileAudio className="h-5 w-5" />
-    }
   ];
 
-  const worldMusicGenres = [
+  // Contemporary music genres
+  const contemporaryGenres = [
     {
-      title: "Afrique",
-      description: "Richesse rythmique et traditions vocales",
-      icon: <Music className="h-5 w-5" />,
-      characteristics: [
-        { title: "Polyrhythmes", description: "Superposition de structures rythmiques complexes" },
-        { title: "Instruments", description: "Djembé, kora, balafon et traditions vocales" }
+      name: "Électronique",
+      description: "Musique créée principalement avec des instruments électroniques et assistée par ordinateur",
+      timeframe: "Années 1970 - présent",
+      artists: ["Daft Punk", "Aphex Twin", "Jean-Michel Jarre", "Kraftwerk"],
+      keyCharacteristics: [
+        "Sons synthétisés",
+        "Rythmes programmés",
+        "Structures évolutives",
+        "Manipulation sonore",
+        "Production numérique"
       ],
-      artists: [
-        { name: "Youssou N'Dour", description: "Star sénégalaise" },
-        { name: "Miriam Makeba", description: "Voix d'Afrique du Sud" },
-        { name: "Fela Kuti", description: "Créateur de l'afrobeat" }
-      ],
-      linkUrl: "/culture/monde/afrique"
+      instruments: "Synthétiseurs, boîtes à rythmes, ordinateurs, contrôleurs MIDI",
+      subgenres: ["Techno", "House", "Ambient", "Drum and Bass", "IDM"]
     },
     {
-      title: "Amérique latine",
-      description: "Rythmes dansants et métissage culturel",
-      icon: <Music2 className="h-5 w-5" />,
-      characteristics: [
-        { title: "Percussions", description: "Congas, bongos, cajon et autres" },
-        { title: "Danses", description: "Salsa, samba, tango liés à la musique" }
+      name: "Pop contemporaine",
+      description: "Musique populaire actuelle caractérisée par la production moderne et l'accessibilité",
+      timeframe: "Années 2000 - présent",
+      artists: ["Beyoncé", "Taylor Swift", "Ed Sheeran", "The Weeknd"],
+      keyCharacteristics: [
+        "Production ultra-polie",
+        "Mélodies accrocheuses",
+        "Structure formatée pour la radio",
+        "Fusion de genres",
+        "Présence massive sur les plateformes numériques"
       ],
-      artists: [
-        { name: "Buena Vista Social Club", description: "Collectif cubain" },
-        { name: "Caetano Veloso", description: "Tropicalisme brésilien" },
-        { name: "Celia Cruz", description: "Reine de la salsa" }
-      ],
-      linkUrl: "/culture/monde/amerique-latine"
+      instruments: "Voix, instruments virtuels, synthétiseurs, guitare, percussion programmée",
+      subgenres: ["Electropop", "R&B contemporain", "Pop alternative", "K-pop"]
     },
     {
-      title: "Asie",
-      description: "Systèmes musicaux sophistiqués et anciens",
-      icon: <Music3 className="h-5 w-5" />,
-      characteristics: [
-        { title: "Gammes", description: "Systèmes modaux différents de l'Occident" },
-        { title: "Instruments", description: "Sitar, tabla, gamelan, erhu" }
+      name: "Néo-Soul / R&B alternatif",
+      description: "Fusion moderne de soul, jazz et R&B avec des éléments contemporains",
+      timeframe: "Années 1990 - présent",
+      artists: ["D'Angelo", "Erykah Badu", "Frank Ocean", "FKA Twigs"],
+      keyCharacteristics: [
+        "Arrangements sophistiqués",
+        "Influences jazz et soul vintage",
+        "Expérimentation sonore",
+        "Lyrics introspectifs",
+        "Groove organique"
       ],
-      artists: [
-        { name: "Ravi Shankar", description: "Virtuose du sitar indien" },
-        { name: "Ali Akbar Khan", description: "Maître du sarod" },
-        { name: "Nusrat Fateh Ali Khan", description: "Chant qawwali" }
-      ],
-      linkUrl: "/culture/monde/asie"
+      instruments: "Instruments live, synthétiseurs, programmation subtile, voix",
+      subgenres: ["Alternative R&B", "Future soul", "Jazz-rap", "Progressive soul"]
     },
-    {
-      title: "Europe et Méditerranée",
-      description: "Traditions folkloriques et influences croisées",
-      icon: <Music4 className="h-5 w-5" />,
-      characteristics: [
-        { title: "Modalité", description: "Échelles et modes traditionnels" },
-        { title: "Instruments", description: "Accordéon, bouzouki, violon, duduk" }
-      ],
-      artists: [
-        { name: "The Chieftains", description: "Musique irlandaise" },
-        { name: "Maria del Mar Bonet", description: "Tradition catalane" },
-        { name: "Goran Bregović", description: "Musiques balkaniques" }
-      ],
-      linkUrl: "/culture/monde/europe"
-    }
   ];
 
   return (
@@ -332,297 +206,527 @@ const CultureMusicale = () => {
       <div className="mb-10">
         <h1 className="text-4xl font-bold mb-4">Culture Musicale</h1>
         <p className="text-lg text-muted-foreground">
-          Explorez l'histoire, les genres et l'évolution de la musique à travers les époques et les cultures.
+          Explorez les différents genres, époques et courants qui ont façonné l'histoire de la musique.
         </p>
       </div>
 
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Évolution et interconnexions des genres musicaux</h2>
-        <MusicInfluenceChart
-          title="Influences entre genres musicaux"
-          description="Visualisation des connexions et influences entre les grands genres musicaux"
-          genres={genresInfluence}
-        />
-      </div>
-
-      <Tabs defaultValue="classique" className="mb-10">
+      <Tabs defaultValue="periodes" className="mb-10">
         <TabsList className="mb-4">
-          <TabsTrigger value="classique">Musique Classique</TabsTrigger>
-          <TabsTrigger value="populaire">Musiques Populaires</TabsTrigger>
-          <TabsTrigger value="monde">Musiques du Monde</TabsTrigger>
-          <TabsTrigger value="instruments">Instruments</TabsTrigger>
+          <TabsTrigger value="periodes">Périodes historiques</TabsTrigger>
+          <TabsTrigger value="genres">Genres musicaux</TabsTrigger>
+          <TabsTrigger value="influences">Influences & évolutions</TabsTrigger>
         </TabsList>
         
-        <MusicalPeriodTab
-          value="classique"
-          title="Musique Classique Occidentale"
-          description="La musique classique occidentale s'étend du XVIIe siècle à nos jours, avec des périodes distinctes marquées par des innovations esthétiques et techniques. De l'ornementation baroque à l'expérimentation contemporaine, cette tradition écrite a profondément influencé toute l'histoire musicale."
-          timelineEvents={classicalTimelineEvents}
-          genres={classicalGenres}
-        />
+        <TabsContent value="periodes">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold mb-2">Chronologie musicale</h2>
+            <p className="text-muted-foreground">
+              La musique occidentale s'est développée à travers plusieurs périodes distinctes, chacune avec ses propres caractéristiques stylistiques, innovations et compositeurs emblématiques.
+            </p>
+          </div>
 
-        <MusicalPeriodTab
-          value="populaire"
-          title="Musiques Populaires"
-          description="Les musiques populaires modernes, nées au XXe siècle, sont caractérisées par leur accessibilité, leur diffusion de masse et leur lien avec les évolutions technologiques et sociales. Du blues au hip-hop en passant par le rock et l'électronique, ces genres continuent d'évoluer rapidement."
-          timelineEvents={popularTimelineEvents}
-          genres={popularGenres}
-        />
-
-        <MusicalPeriodTab
-          value="monde"
-          title="Musiques du Monde"
-          description="Les musiques traditionnelles et folkloriques du monde entier représentent une richesse culturelle inestimable. Chaque région a développé des styles, instruments et techniques vocales uniques, souvent liés à des pratiques rituelles, sociales ou festives spécifiques."
-          timelineEvents={worldMusicTimelineEvents}
-          genres={worldMusicGenres}
-        />
+          <Tabs defaultValue="classique">
+            <TabsList className="mb-6">
+              <TabsTrigger value="medievale">Médiévale</TabsTrigger>
+              <TabsTrigger value="renaissance">Renaissance</TabsTrigger>
+              <TabsTrigger value="classique">Classique</TabsTrigger>
+              <TabsTrigger value="moderne">Moderne</TabsTrigger>
+              <TabsTrigger value="contemporaine">Contemporaine</TabsTrigger>
+            </TabsList>
+            
+            <MusicalPeriodTab
+              value="medievale"
+              title="Période Médiévale (500-1400)"
+              description="L'époque médiévale voit l'émergence du plain-chant grégorien, des troubadours et l'établissement de la notation musicale."
+              timelineEvents={[
+                {
+                  year: "590-604",
+                  title: "Le pape Grégoire Ier",
+                  description: "Compilation et standardisation du chant grégorien"
+                },
+                {
+                  year: "1000-1100",
+                  title: "Guido d'Arezzo",
+                  description: "Invention de la notation musicale sur portée"
+                },
+                {
+                  year: "1150-1250",
+                  title: "École de Notre-Dame",
+                  description: "Développement de la polyphonie et du motet"
+                },
+                {
+                  year: "1300-1377",
+                  title: "Ars Nova",
+                  description: "Innovations rythmiques et structurelles par Guillaume de Machaut"
+                }
+              ]}
+              genres={[
+                {
+                  title: "Chant Grégorien",
+                  description: "Musique sacrée monodique chantée a cappella",
+                  characteristics: [
+                    {title: "Texture", description: "Monophonique (une seule ligne mélodique)"},
+                    {title: "Rythme", description: "Libre, suivant le texte liturgique"}
+                  ],
+                  artists: [
+                    {name: "Anonymes (moines)"}
+                  ],
+                  timeframe: "6ème-14ème siècles"
+                },
+                {
+                  title: "Musique des Troubadours",
+                  description: "Chansons profanes sur l'amour courtois et la chevalerie",
+                  characteristics: [
+                    {title: "Forme", description: "Strophique avec refrains"},
+                    {title: "Thèmes", description: "Amour courtois, exploits chevaleresques"}
+                  ],
+                  artists: [
+                    {name: "Bernard de Ventadour"},
+                    {name: "Thibaut de Champagne"}
+                  ],
+                  timeframe: "12ème-13ème siècles"
+                }
+              ]}
+            />
+            
+            <MusicalPeriodTab
+              value="renaissance"
+              title="Renaissance (1400-1600)"
+              description="Période marquée par un retour aux idéaux de l'Antiquité, l'humanisme, et l'essor de la polyphonie vocale."
+              timelineEvents={[
+                {
+                  year: "1425-1450",
+                  title: "Guillaume Dufay",
+                  description: "Développement du style bourguignon"
+                },
+                {
+                  year: "1501",
+                  title: "Ottaviano Petrucci",
+                  description: "Premières partitions musicales imprimées"
+                },
+                {
+                  year: "1540-1550",
+                  title: "Concile de Trente",
+                  description: "Réforme de la musique sacrée catholique"
+                },
+                {
+                  year: "1550-1600",
+                  title: "École vénitienne",
+                  description: "Développement de la polychoralité par Andrea et Giovanni Gabrieli"
+                }
+              ]}
+              genres={[
+                {
+                  title: "Chanson polyphonique",
+                  description: "Compositions profanes à plusieurs voix",
+                  characteristics: [
+                    {title: "Texture", description: "Polyphonique (3-5 voix)"},
+                    {title: "Forme", description: "Formes fixes comme le rondeau et la ballade"}
+                  ],
+                  artists: [
+                    {name: "Josquin des Prez"},
+                    {name: "Clément Janequin"}
+                  ],
+                  timeframe: "15ème-16ème siècles"
+                },
+                {
+                  title: "Madrigal",
+                  description: "Composition vocale expressive sur des textes poétiques",
+                  characteristics: [
+                    {title: "Expression", description: "Word painting (illustration musicale du texte)"},
+                    {title: "Harmonie", description: "Chromatisme et dissonances expressives"}
+                  ],
+                  artists: [
+                    {name: "Carlo Gesualdo"},
+                    {name: "Claudio Monteverdi"}
+                  ],
+                  timeframe: "16ème siècle"
+                }
+              ]}
+            />
+            
+            <MusicalPeriodTab
+              value="classique"
+              title="Période Classique (1600-1900)"
+              description="Englobant les périodes baroque, classique et romantique, cette ère a vu l'établissement de formes musicales qui perdurent encore aujourd'hui."
+              timelineEvents={[
+                {
+                  year: "1607",
+                  title: "Monteverdi - Orfeo",
+                  description: "Un des premiers opéras importants"
+                },
+                {
+                  year: "1750",
+                  title: "Mort de J.S. Bach",
+                  description: "Marque conventionnellement la fin de l'ère baroque"
+                },
+                {
+                  year: "1803",
+                  title: "Beethoven - Symphonie n°3",
+                  description: "Œuvre pivotale annonçant le romantisme"
+                },
+                {
+                  year: "1876",
+                  title: "Wagner - L'Anneau du Nibelung",
+                  description: "Apogée du drame musical romantique"
+                }
+              ]}
+              genres={[
+                {
+                  title: "Baroque",
+                  description: "Style ornemental riche en contrepoint et basse continue",
+                  characteristics: [
+                    {title: "Forme", description: "Concerto, sonate, suite"},
+                    {title: "Technique", description: "Basse continue, ornementation élaborée"}
+                  ],
+                  artists: [
+                    {name: "J.S. Bach"},
+                    {name: "G.F. Haendel"}
+                  ],
+                  timeframe: "1600-1750"
+                },
+                {
+                  title: "Classicisme",
+                  description: "Style équilibré privilégiant la clarté et la symétrie",
+                  characteristics: [
+                    {title: "Forme", description: "Forme sonate, symphonie classique"},
+                    {title: "Esthétique", description: "Équilibre, clarté, élégance"}
+                  ],
+                  artists: [
+                    {name: "W.A. Mozart"},
+                    {name: "L.v. Beethoven (période précoce)"}
+                  ],
+                  timeframe: "1750-1820"
+                },
+                {
+                  title: "Romantisme",
+                  description: "Expression émotionnelle intense, nationalisme et innovation formelle",
+                  characteristics: [
+                    {title: "Expression", description: "Émotions exacerbées, individualité"},
+                    {title: "Innovations", description: "Harmonie étendue, orchestration riche"}
+                  ],
+                  artists: [
+                    {name: "Frédéric Chopin"},
+                    {name: "Richard Wagner"}
+                  ],
+                  timeframe: "1820-1900"
+                }
+              ]}
+            />
+            
+            <MusicalPeriodTab
+              value="moderne"
+              title="Période Moderne (1900-1960)"
+              description="Époque de rupture avec les traditions et d'innovations radicales en réponse aux bouleversements de la première moitié du 20ème siècle."
+              timelineEvents={[
+                {
+                  year: "1913",
+                  title: "Stravinsky - Le Sacre du Printemps",
+                  description: "Révolution rythmique et harmonique"
+                },
+                {
+                  year: "1923",
+                  title: "Schönberg - Méthode de composition à 12 sons",
+                  description: "Développement du dodécaphonisme"
+                },
+                {
+                  year: "1939-1945",
+                  title: "Seconde Guerre Mondiale",
+                  description: "Dispersion des compositeurs et nouvelles influences"
+                },
+                {
+                  year: "1948",
+                  title: "Musique concrète",
+                  description: "Pierre Schaeffer commence ses expériences à la RTF"
+                }
+              ]}
+              genres={[
+                {
+                  title: "Impressionnisme musical",
+                  description: "Style évocateur inspiré des impressionnistes en peinture",
+                  characteristics: [
+                    {title: "Harmonie", description: "Gammes par tons, modes exotiques"},
+                    {title: "Texture", description: "Sonorités vaporeuses, timbres recherchés"}
+                  ],
+                  artists: [
+                    {name: "Claude Debussy"},
+                    {name: "Maurice Ravel"}
+                  ],
+                  timeframe: "1890-1920"
+                },
+                {
+                  title: "Dodécaphonisme",
+                  description: "Technique de composition utilisant les 12 sons de la gamme chromatique",
+                  characteristics: [
+                    {title: "Technique", description: "Séries de 12 sons sans hiérarchie tonale"},
+                    {title: "Expression", description: "Expressionnisme, tension dissonante"}
+                  ],
+                  artists: [
+                    {name: "Arnold Schönberg"},
+                    {name: "Alban Berg"}
+                  ],
+                  timeframe: "1920-1950"
+                }
+              ]}
+            />
+            
+            <MusicalPeriodTab
+              value="contemporaine"
+              title="Période Contemporaine (1960-présent)"
+              description="Caractérisée par une grande diversité d'approches, du minimalisme à l'expérimentation électronique et l'éclatement des genres."
+              timelineEvents={[
+                {
+                  year: "1965",
+                  title: "Terry Riley - In C",
+                  description: "Œuvre fondatrice du minimalisme"
+                },
+                {
+                  year: "1970s",
+                  title: "Essor de la musique électronique",
+                  description: "Développement des synthétiseurs et de la musique assistée par ordinateur"
+                },
+                {
+                  year: "1980s",
+                  title: "Retour à la tonalité",
+                  description: "Mouvement néo-romantique et postmoderne"
+                },
+                {
+                  year: "2000s",
+                  title: "Ère numérique",
+                  description: "Démocratisation des outils de création et diffusion musicale"
+                }
+              ]}
+              genres={[
+                {
+                  title: "Minimalisme",
+                  description: "Style basé sur la répétition et les changements graduels",
+                  characteristics: [
+                    {title: "Structure", description: "Processus répétitifs, phasage"},
+                    {title: "Texture", description: "Pulsation constante, superpositions rythmiques"}
+                  ],
+                  artists: [
+                    {name: "Steve Reich"},
+                    {name: "Philip Glass"}
+                  ],
+                  timeframe: "1960-présent"
+                },
+                {
+                  title: "Musique spectrale",
+                  description: "Basée sur l'analyse du spectre sonore et ses transformations",
+                  characteristics: [
+                    {title: "Harmonie", description: "Dérivée du spectre harmonique naturel"},
+                    {title: "Recherche", description: "Exploration du timbre et microtonalité"}
+                  ],
+                  artists: [
+                    {name: "Gérard Grisey"},
+                    {name: "Tristan Murail"}
+                  ],
+                  timeframe: "1970-présent"
+                }
+              ]}
+            />
+          </Tabs>
+        </TabsContent>
         
-        <TabsContent value="instruments">
-          <Card>
-            <CardHeader>
-              <CardTitle>Les instruments à travers le monde</CardTitle>
-              <CardDescription>Exploration des outils de création musicale et leur évolution</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <p>
-                Les instruments de musique sont les extensions de l'expression humaine, permettant de transformer 
-                l'intention artistique en sons. Leur diversité reflète la richesse des cultures mondiales.
+        <TabsContent value="genres">
+          <div className="space-y-16">
+            <GenreGridSection 
+              title="Musique Classique" 
+              description="Traditions musicales savantes européennes développées du Moyen Âge à nos jours"
+              genres={classicalGenres}
+              columns={3}
+            />
+            
+            <Separator className="my-8" />
+            
+            <GenreGridSection 
+              title="Musique Populaire"
+              description="Genres ayant émergé aux 20ème et 21ème siècles avec une large diffusion culturelle"
+              genres={popularGenres}
+              columns={3}
+            />
+            
+            <Separator className="my-8" />
+            
+            <GenreGridSection 
+              title="Musiques du Monde"
+              description="Traditions musicales issues de diverses cultures à travers le globe"
+              genres={worldGenres}
+              columns={3}
+            />
+            
+            <Separator className="my-8" />
+            
+            <GenreGridSection 
+              title="Musique Contemporaine"
+              description="Genres actuels reflétant l'évolution technologique et la fusion des influences"
+              genres={contemporaryGenres}
+              columns={3}
+            />
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="influences">
+          <div className="space-y-6">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-2">Interconnexions musicales</h2>
+              <p className="text-muted-foreground">
+                La musique est un phénomène culturel en constante évolution, où les genres s'influencent mutuellement à travers le temps et l'espace.
               </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Évolution des genres</CardTitle>
+                  <CardDescription>Comment les styles musicaux se transforment au fil du temps</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <MusicInfluenceChart />
+                </CardContent>
+              </Card>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-4 p-4 bg-muted/30 rounded-lg">
-                  <h3 className="text-xl font-semibold">Familles d'instruments occidentaux</h3>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Influences transculturelles</CardTitle>
+                  <CardDescription>Échanges entre traditions musicales à travers le monde</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p>
+                    Les échanges culturels ont toujours joué un rôle crucial dans l'évolution musicale, créant des fusions et des hybridations riches.
+                  </p>
                   
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-lg font-medium">Exemples marquants:</h3>
+                      <ul className="list-disc pl-5 mt-2 space-y-1 text-muted-foreground">
+                        <li>Fusion du blues africain-américain et de la country pour créer le rock'n'roll</li>
+                        <li>Influence des modes arabes sur le flamenco espagnol</li>
+                        <li>Impact des rythmes africains sur la musique cubaine et brésilienne</li>
+                        <li>Synthèse des traditions indiennes et occidentales dans la world music</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-lg font-medium">Facteurs d'influence:</h3>
+                      <div className="grid grid-cols-2 gap-4 mt-2">
+                        <div className="bg-primary/10 p-3 rounded-md">
+                          <h4 className="font-medium">Migrations</h4>
+                          <p className="text-sm text-muted-foreground">Déplacements de populations et diaspora</p>
+                        </div>
+                        
+                        <div className="bg-primary/10 p-3 rounded-md">
+                          <h4 className="font-medium">Colonisation</h4>
+                          <p className="text-sm text-muted-foreground">Impositions et métissages culturels</p>
+                        </div>
+                        
+                        <div className="bg-primary/10 p-3 rounded-md">
+                          <h4 className="font-medium">Technologie</h4>
+                          <p className="text-sm text-muted-foreground">Diffusion mondiale et accessibilité</p>
+                        </div>
+                        
+                        <div className="bg-primary/10 p-3 rounded-md">
+                          <h4 className="font-medium">Économie</h4>
+                          <p className="text-sm text-muted-foreground">Circuits commerciaux et industrie</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <Card className="mt-6">
+              <CardHeader>
+                <CardTitle>Études de cas: fusions musicales significatives</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid md:grid-cols-3 gap-6">
                   <div className="space-y-2">
-                    <h4 className="text-lg font-medium">Cordes</h4>
-                    <p className="text-muted-foreground">
-                      Instruments dont le son est produit par la vibration de cordes tendues. On distingue:
+                    <h3 className="font-semibold">Jazz-fusion</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Dans les années 1960-70, Miles Davis et d'autres musiciens ont fusionné le jazz avec le rock et les musiques électroniques, créant un nouveau langage musical qui a influencé des générations d'artistes.
                     </p>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li><span className="font-medium">Cordes frottées</span>: violon, alto, violoncelle, contrebasse</li>
-                      <li><span className="font-medium">Cordes pincées</span>: guitare, harpe, luth, mandoline</li>
-                      <li><span className="font-medium">Cordes frappées</span>: piano, cymbalum</li>
-                    </ul>
+                    <p className="text-sm font-medium">Œuvres clés: "Bitches Brew" (Miles Davis), "Birds of Fire" (Mahavishnu Orchestra)</p>
                   </div>
                   
                   <div className="space-y-2">
-                    <h4 className="text-lg font-medium">Vents</h4>
-                    <p className="text-muted-foreground">
-                      Instruments dont le son est produit par la vibration d'une colonne d'air. On distingue:
+                    <h3 className="font-semibold">Afrobeat</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Fela Kuti a créé l'afrobeat en mélangeant les rythmes yoruba, le highlife ghanéen, le jazz et le funk américain, donnant naissance à un style politiquement engagé qui résonne encore aujourd'hui.
                     </p>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li><span className="font-medium">Bois</span>: flûte, hautbois, clarinette, saxophone</li>
-                      <li><span className="font-medium">Cuivres</span>: trompette, cor, trombone, tuba</li>
-                    </ul>
+                    <p className="text-sm font-medium">Œuvres clés: "Zombie" (Fela Kuti), "Open & Close" (Fela Kuti)</p>
                   </div>
                   
                   <div className="space-y-2">
-                    <h4 className="text-lg font-medium">Percussions</h4>
-                    <p className="text-muted-foreground">
-                      Instruments dont le son est produit par frappe ou secouement:
+                    <h3 className="font-semibold">Trip-hop</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Né à Bristol dans les années 1990, le trip-hop combine hip-hop, musique électronique, dub jamaïcain et ambiances cinématographiques, créant une esthétique urbaine distinctive.
                     </p>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li><span className="font-medium">Membranophones</span>: tambours, timbales, congas</li>
-                      <li><span className="font-medium">Idiophones</span>: xylophones, triangles, cymbales</li>
-                    </ul>
+                    <p className="text-sm font-medium">Œuvres clés: "Dummy" (Portishead), "Blue Lines" (Massive Attack)</p>
                   </div>
                 </div>
-
-                <div className="space-y-4 p-4 bg-muted/30 rounded-lg">
-                  <h3 className="text-xl font-semibold">Instruments traditionnels par région</h3>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-lg font-medium">Asie</h4>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li><span className="font-medium">Inde</span>: sitar, tabla, sarod, tampura</li>
-                      <li><span className="font-medium">Chine</span>: erhu, guzheng, pipa, dizi</li>
-                      <li><span className="font-medium">Japon</span>: koto, shamisen, shakuhachi</li>
-                      <li><span className="font-medium">Indonésie</span>: gamelan (ensemble d'instruments)</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-lg font-medium">Afrique</h4>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li><span className="font-medium">Percussions</span>: djembé, talking drum, balafon</li>
-                      <li><span className="font-medium">Cordes</span>: kora, ngoni, mbira (piano à pouces)</li>
-                      <li><span className="font-medium">Vents</span>: flûte peule, alghaïta</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-lg font-medium">Moyen-Orient</h4>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li><span className="font-medium">Cordes</span>: oud, qanun, santour</li>
-                      <li><span className="font-medium">Percussions</span>: darbuka, riq, bendir</li>
-                      <li><span className="font-medium">Vents</span>: ney, duduk, zurna</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="text-lg font-medium">Amériques</h4>
-                    <ul className="list-disc pl-5 text-sm">
-                      <li><span className="font-medium">Amérique latine</span>: charango, quena, maracas, cuatro</li>
-                      <li><span className="font-medium">Amérique du Nord</span>: banjo, harmonica, washboard</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-6 space-y-4">
-                <h3 className="text-xl font-semibold">Instruments électroniques et numériques</h3>
-                <p className="text-muted-foreground">
-                  L'évolution technologique a permis l'émergence de nouveaux moyens de création sonore:
-                </p>
-                
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="p-4 border rounded-lg">
-                    <h4 className="font-medium mb-2">Synthétiseurs</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Du Minimoog aux workstations numériques modernes, ces instruments créent des sons par génération et manipulation électronique.
-                    </p>
-                  </div>
-                  
-                  <div className="p-4 border rounded-lg">
-                    <h4 className="font-medium mb-2">Samplers</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Permettent d'échantillonner, manipuler et rejouer des sons enregistrés, révolutionnant la production musicale.
-                    </p>
-                  </div>
-                  
-                  <div className="p-4 border rounded-lg">
-                    <h4 className="font-medium mb-2">Contrôleurs MIDI</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Interfaces permettant de contrôler des sons générés par ordinateur avec une expressivité instrumentale.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
       
       <Separator className="my-8" />
       
       <div className="mb-10">
-        <h2 className="text-2xl font-bold mb-6">Articles à la une</h2>
+        <h2 className="text-2xl font-bold mb-4">Ressources d'apprentissage</h2>
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="card-hover">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Music className="h-5 w-5 text-primary" />
-                Les influences du jazz
-              </CardTitle>
-              <CardDescription>Comment le jazz a façonné la musique moderne</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="relative h-48 w-full overflow-hidden rounded-lg mb-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                  alt="Musicien de jazz jouant du saxophone" 
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <p className="text-muted-foreground mb-4">
-                Du blues au bebop, en passant par le swing et le free jazz, explorez l'évolution d'un genre révolutionnaire.
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button asChild variant="outline" size="sm">
-                <Link to="/culture/jazz">Lire l'article</Link>
-              </Button>
-            </CardFooter>
-          </Card>
-          
-          <Card className="card-hover">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Music2 className="h-5 w-5 text-primary" />
-                La musique à l'ère du numérique
-              </CardTitle>
-              <CardDescription>Streaming, algorithmes et création musicale</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="relative h-48 w-full overflow-hidden rounded-lg mb-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                  alt="Studio d'enregistrement numérique" 
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <p className="text-muted-foreground mb-4">
-                Comment les plateformes de streaming et l'intelligence artificielle transforment notre relation à la musique.
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button asChild variant="outline" size="sm">
-                <Link to="/culture/numerique">Lire l'article</Link>
-              </Button>
-            </CardFooter>
-          </Card>
-          
-          <Card className="card-hover">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-primary" />
-                Grandes œuvres classiques
+                Analyses musicales
               </CardTitle>
-              <CardDescription>Les chefs-d'œuvre intemporels à connaître</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="relative h-48 w-full overflow-hidden rounded-lg mb-4">
-                <img 
-                  src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                  alt="Partition de musique classique" 
-                  className="h-full w-full object-cover"
-                />
-              </div>
               <p className="text-muted-foreground mb-4">
-                Une sélection des compositions essentielles qui ont marqué l'histoire de la musique classique occidentale.
+                Explorations détaillées des œuvres emblématiques, de leurs structures et de leur contexte historique.
               </p>
+              <Button asChild variant="outline">
+                <Link to="/culture/analyses">Découvrir</Link>
+              </Button>
             </CardContent>
-            <CardFooter>
-              <Button asChild variant="outline" size="sm">
-                <Link to="/culture/classiques">Lire l'article</Link>
-              </Button>
-            </CardFooter>
           </Card>
-        </div>
-      </div>
-      
-      <div className="bg-muted/50 p-6 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">Outils pédagogiques</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/20 text-primary">
-              <Music3 className="h-6 w-6" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Chronologie interactive</h3>
-              <p className="text-muted-foreground mb-3">
-                Parcourez les grandes époques de l'histoire musicale et leurs caractéristiques principales.
-              </p>
-              <Button asChild variant="outline" size="sm">
-                <Link to="/culture/chronologie">Découvrir</Link>
-              </Button>
-            </div>
-          </div>
           
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/20 text-primary">
-              <Music4 className="h-6 w-6" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Bibliothèque d'écoute</h3>
-              <p className="text-muted-foreground mb-3">
-                Une collection d'extraits musicaux représentatifs des différents genres et périodes.
+          <Card className="card-hover">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Globe className="h-5 w-5 text-primary" />
+                Atlas musical
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Cartographie des traditions musicales mondiales et de leurs interconnexions culturelles.
               </p>
-              <Button asChild variant="outline" size="sm">
-                <Link to="/culture/ecoute">Explorer</Link>
+              <Button asChild variant="outline">
+                <Link to="/culture/atlas">Explorer</Link>
               </Button>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="card-hover">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Clock className="h-5 w-5 text-primary" />
+                Chronologie interactive
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Parcourez l'histoire de la musique à travers une ligne du temps interactive et multimédia.
+              </p>
+              <Button asChild variant="outline">
+                <Link to="/culture/chronologie">Naviguer</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

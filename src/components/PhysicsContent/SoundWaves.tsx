@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AudioWaveform, Waves } from "lucide-react";
@@ -66,6 +67,7 @@ const SoundWaves = () => {
           description="Les différents types d'ondes en acoustique"
           imageSrc="/images/waveforms.svg"
           caption="De haut en bas: onde sinusoïdale, carrée, triangulaire et en dents de scie"
+          aspectRatio="wide"
         />
       </div>
       

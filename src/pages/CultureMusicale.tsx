@@ -1,732 +1,562 @@
-
-import React, { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { MusicIcon, BookOpen, Globe, Clock } from "lucide-react";
+import { Clock, HelpCircle, History, Music, NotebookPen, FileText, Layers, Globe, Headphones } from "lucide-react";
+
 import GenreGridSection from "@/components/music/GenreGridSection";
 import MusicalPeriodTab from "@/components/music/MusicalPeriodTab";
 import MusicInfluenceChart from "@/components/music/MusicInfluenceChart";
+import TimelineCard from "@/components/music/TimelineCard";
 
 const CultureMusicale = () => {
-  // Classical music genres
   const classicalGenres = [
     {
       name: "Musique Baroque",
-      description: "Période marquée par une complexité harmonique et l'utilisation du contrepoint",
+      description: "Caractérisée par l'ornementation et la complexité contrapuntique",
       timeframe: "1600-1750",
-      artists: ["Jean-Sébastien Bach", "Antonio Vivaldi", "Georg Friedrich Haendel"],
+      artists: ["Johann Sebastian Bach", "Antonio Vivaldi", "Georg Friedrich Händel"],
       keyCharacteristics: [
-        "Utilisation intensive du contrepoint",
-        "Ornementation élaborée",
-        "Basse continue"
+        "Utilisation extensive du contrepoint",
+        "Ornementation riche",
+        "Basse continue",
+        "Contrastes dynamiques"
       ],
-      instruments: "Clavecin, violon baroque, hautbois baroque, viole de gambe",
-      subgenres: ["Concerto grosso", "Oratorio", "Suite baroque"]
+      instruments: ["Clavecin", "Viole de gambe", "Orgue", "Violon baroque"],
+      subgenres: ["Opéra baroque", "Cantate", "Concerto grosso", "Suite"]
     },
     {
-      name: "Classicisme",
-      description: "Période caractérisée par l'élégance, la clarté et l'équilibre",
+      name: "Période Classique",
+      description: "Clarté structurelle et équilibre formel",
       timeframe: "1750-1820",
       artists: ["Wolfgang Amadeus Mozart", "Ludwig van Beethoven", "Joseph Haydn"],
       keyCharacteristics: [
-        "Forme sonate",
-        "Clarté harmonique", 
-        "Équilibre architectural",
-        "Symétrie des phrases"
+        "Formes sonate et rondo",
+        "Mélodies équilibrées",
+        "Harmonie tonale claire",
+        "Orchestration standardisée"
       ],
-      instruments: "Piano-forte, instruments à vents, quatuor à cordes",
-      subgenres: ["Symphonie classique", "Sonate classique", "Quatuor à cordes"]
+      instruments: ["Piano", "Quatuor à cordes", "Orchestre symphonique"],
+      subgenres: ["Symphonie classique", "Concerto", "Opéra buffa", "Musique de chambre"]
     },
     {
-      name: "Romantisme",
-      description: "Expression intense des émotions et accent sur l'individualité",
-      timeframe: "1800-1910",
-      artists: ["Frédéric Chopin", "Franz Liszt", "Piotr Ilitch Tchaïkovski"],
+      name: "Musique Sacrée",
+      description: "Œuvres vocales et instrumentales destinées au culte",
+      timeframe: "Toutes périodes",
+      artists: ["Giovanni Pierluigi da Palestrina", "Johann Sebastian Bach", "Wolfgang Amadeus Mozart"],
       keyCharacteristics: [
-        "Expression émotionnelle intense",
-        "Virtuosité instrumentale",
-        "Exploration de thèmes nationaux",
-        "Programmes narratifs"
+        "Textes liturgiques",
+        "Polyphonie vocale",
+        "Utilisation de l'orgue",
+        "Atmosphère spirituelle"
       ],
-      instruments: "Piano moderne, orchestre symphonique élargi",
-      subgenres: ["Poème symphonique", "Drame musical", "Nocturne"]
-    },
+      instruments: ["Voix", "Orgue", "Ensemble vocal", "Instruments baroques"],
+      subgenres: ["Messe", "Requiem", "Motet", "Cantique"]
+    }
   ];
 
-  // Popular music genres
-  const popularGenres = [
+  const romanticGenres = [
     {
-      name: "Jazz",
-      description: "Genre musical né aux États-Unis caractérisé par l'improvisation et le swing",
-      timeframe: "Début du 20ème siècle - présent",
-      artists: ["Louis Armstrong", "Miles Davis", "Ella Fitzgerald", "Duke Ellington"],
+      name: "Romantisme précoce",
+      description: "Exaltation des émotions et individualisme",
+      timeframe: "1800-1850",
+      artists: ["Franz Schubert", "Frédéric Chopin", "Robert Schumann"],
       keyCharacteristics: [
-        "Improvisation",
-        "Swing",
-        "Blue notes",
-        "Polyrythmies",
-        "Interactions entre musiciens"
+        "Expressivité émotionnelle",
+        "Formes libres",
+        "Lyrisme mélodique",
+        "Colorations harmoniques riches"
       ],
-      instruments: "Saxophone, trompette, piano, contrebasse, batterie",
-      subgenres: ["Bebop", "Cool jazz", "Free jazz", "Fusion", "Latin jazz"]
+      instruments: ["Piano", "Orchestre symphonique", "Voix lyrique", "Violon"],
+      subgenres: ["Lied", "Nocturne", "Étude", "Ballade"]
     },
     {
-      name: "Rock",
-      description: "Genre musical dérivé du rock 'n' roll et du blues, caractérisé par des guitares amplifiées",
-      timeframe: "Années 1950 - présent",
-      artists: ["The Beatles", "Led Zeppelin", "Queen", "Pink Floyd"],
+      name: "Romantisme tardif",
+      description: "Grandiose et complexité accrue",
+      timeframe: "1850-1910",
+      artists: ["Johannes Brahms", "Richard Wagner", "Gustav Mahler"],
       keyCharacteristics: [
-        "Guitares électriques amplifiées",
-        "Rythmique puissante",
-        "Structure couplet-refrain",
-        "Énergie et attitude rebelle"
+        "Développement thématique complexe",
+        "Harmonies chromatiques",
+        "Orchestration massive",
+        "Durées étendues"
       ],
-      instruments: "Guitare électrique, basse, batterie, clavier",
-      subgenres: ["Hard rock", "Prog rock", "Punk rock", "Indie rock", "Alternatif"]
+      instruments: ["Orchestre symphonique", "Opéra", "Piano"],
+      subgenres: ["Symphonie", "Poème symphonique", "Opéra wagnérien"]
     },
     {
-      name: "Hip-Hop",
-      description: "Mouvement culturel et musical né dans le Bronx, mêlant rythmes et paroles débitées",
-      timeframe: "Fin des années 1970 - présent",
-      artists: ["Grandmaster Flash", "Tupac Shakur", "Jay-Z", "Nas"],
+      name: "Nationalisme musical",
+      description: "Inspiration du folklore et de l'identité nationale",
+      timeframe: "1840-1930",
+      artists: ["Bedřich Smetana", "Antonín Dvořák", "Edvard Grieg"],
       keyCharacteristics: [
-        "Samples et beats",
-        "Flow rythmique des paroles",
-        "Narration urbaine",
-        "Engagement social et politique",
-        "Techniques de DJ"
+        "Mélodies folkloriques",
+        "Rythmes nationaux",
+        "Thèmes patriotiques",
+        "Harmonies modales"
       ],
-      instruments: "Platines, samplers, boîtes à rythmes, synthétiseurs",
-      subgenres: ["Old school", "Gangsta rap", "Trap", "Conscious rap", "Cloud rap"]
-    },
+      instruments: ["Orchestre symphonique", "Instruments traditionnels"],
+      subgenres: ["Poème symphonique nationaliste", "Opéra national", "Danses folkloriques"]
+    }
   ];
 
-  // World music genres
-  const worldGenres = [
+  const modernGenres = [
     {
-      name: "Flamenco",
-      description: "Expression musicale et dansée de l'Andalousie, mêlant influences gitanes et arabes",
-      timeframe: "18ème siècle - présent",
-      artists: ["Paco de Lucía", "Camarón de la Isla", "Lole y Manuel"],
+      name: "Impressionnisme",
+      description: "Évocation d'atmosphères et de sensations",
+      timeframe: "1875-1925",
+      artists: ["Claude Debussy", "Maurice Ravel", "Erik Satie"],
       keyCharacteristics: [
-        "Chant expressif (cante)",
-        "Guitare virtuose",
-        "Danse rythmique (baile)",
-        "Palmas (claquements de mains)",
-        "Structure rythmique complexe"
+        "Harmonies non fonctionnelles",
+        "Timbres évocateurs",
+        "Inspiration extra-musicale",
+        "Rythmes fluides"
       ],
-      instruments: "Guitare flamenca, cajón, palmas",
-      subgenres: ["Soleá", "Bulería", "Seguiriya", "Fandango"]
+      instruments: ["Piano", "Harpe", "Instruments à vent", "Orchestre coloré"],
+      subgenres: ["Préludes impressionnistes", "Poèmes symphoniques", "Ballets"]
     },
     {
-      name: "Musique Traditionnelle Chinoise",
-      description: "Tradition musicale millénaire basée sur la pentatonique et l'harmonie cosmique",
-      timeframe: "Antiquité - présent",
-      artists: ["Liu Fang", "Wu Man", "Guo Gan"],
+      name: "Expressionnisme",
+      description: "Distorsion émotionnelle et atonalité",
+      timeframe: "1908-1930",
+      artists: ["Arnold Schoenberg", "Alban Berg", "Anton Webern"],
       keyCharacteristics: [
-        "Gammes pentatoniques",
-        "Ornementation délicate",
-        "Représentation de la nature",
-        "Philosophie taoïste de l'harmonie"
+        "Atonalité",
+        "Dissonance",
+        "Expression intense",
+        "Formes brèves"
       ],
-      instruments: "Erhu, guzheng, pipa, dizi, yangqin",
-      subgenres: ["Musique de cour", "Opéra chinois", "Musique folklorique"]
+      instruments: ["Ensembles de chambre", "Voix", "Orchestre"],
+      subgenres: ["Opéra expressionniste", "Lied", "Pièces pour piano"]
     },
     {
-      name: "Reggae",
-      description: "Genre musical jamaïcain aux rythmes syncopés et messages spirituels",
-      timeframe: "Années 1960 - présent",
-      artists: ["Bob Marley", "Peter Tosh", "Jimmy Cliff", "Burning Spear"],
+      name: "Néo-classicisme",
+      description: "Retour aux formes et esthétiques classiques",
+      timeframe: "1920-1950",
+      artists: ["Igor Stravinsky", "Paul Hindemith", "Serge Prokofiev"],
       keyCharacteristics: [
-        "Rythme accentué sur le temps faible (offbeat)",
-        "Basse proéminente",
-        "Thèmes spirituels et sociaux",
-        "Tempo modéré",
-        "Connection au rastafari"
+        "Tonalité élargie",
+        "Formes classiques revisitées",
+        "Objectivité",
+        "Clarté rythmique"
       ],
-      instruments: "Guitare, basse, batterie, orgue, cuivres",
-      subgenres: ["Dub", "Dancehall", "Roots reggae", "Ska", "Rocksteady"]
-    },
+      instruments: ["Orchestre", "Ensembles de chambre", "Piano"],
+      subgenres: ["Symphonie néo-classique", "Concerto", "Opéra"]
+    }
   ];
 
-  // Contemporary music genres
   const contemporaryGenres = [
     {
-      name: "Électronique",
-      description: "Musique créée principalement avec des instruments électroniques et assistée par ordinateur",
-      timeframe: "Années 1970 - présent",
-      artists: ["Daft Punk", "Aphex Twin", "Jean-Michel Jarre", "Kraftwerk"],
+      name: "Musique sérielle",
+      description: "Organisation mathématique des paramètres sonores",
+      timeframe: "1950-présent",
+      artists: ["Pierre Boulez", "Karlheinz Stockhausen", "Milton Babbitt"],
       keyCharacteristics: [
-        "Sons synthétisés",
-        "Rythmes programmés",
-        "Structures évolutives",
-        "Manipulation sonore",
-        "Production numérique"
+        "Sérialisme intégral",
+        "Structures mathématiques",
+        "Dissonances contrôlées",
+        "Complexité rythmique"
       ],
-      instruments: "Synthétiseurs, boîtes à rythmes, ordinateurs, contrôleurs MIDI",
-      subgenres: ["Techno", "House", "Ambient", "Drum and Bass", "IDM"]
+      instruments: ["Ensembles mixtes", "Électronique", "Percussion", "Instruments préparés"],
+      subgenres: ["Musique stochastique", "Musique spectrale", "Post-sérialisme"]
     },
     {
-      name: "Pop contemporaine",
-      description: "Musique populaire actuelle caractérisée par la production moderne et l'accessibilité",
-      timeframe: "Années 2000 - présent",
-      artists: ["Beyoncé", "Taylor Swift", "Ed Sheeran", "The Weeknd"],
+      name: "Musique concrète",
+      description: "Utilisation de sons enregistrés comme matériau musical",
+      timeframe: "1948-présent",
+      artists: ["Pierre Schaeffer", "Pierre Henry", "Bernard Parmegiani"],
       keyCharacteristics: [
-        "Production ultra-polie",
-        "Mélodies accrocheuses",
-        "Structure formatée pour la radio",
-        "Fusion de genres",
-        "Présence massive sur les plateformes numériques"
+        "Sons concrets transformés",
+        "Collages sonores",
+        "Absence de notation traditionnelle",
+        "Spatialisation du son"
       ],
-      instruments: "Voix, instruments virtuels, synthétiseurs, guitare, percussion programmée",
-      subgenres: ["Electropop", "R&B contemporain", "Pop alternative", "K-pop"]
+      instruments: ["Bandes magnétiques", "Haut-parleurs", "Ordinateurs"],
+      subgenres: ["Acousmatique", "Musique mixte", "Création radiophonique"]
     },
     {
-      name: "Néo-Soul / R&B alternatif",
-      description: "Fusion moderne de soul, jazz et R&B avec des éléments contemporains",
-      timeframe: "Années 1990 - présent",
-      artists: ["D'Angelo", "Erykah Badu", "Frank Ocean", "FKA Twigs"],
+      name: "Minimalisme",
+      description: "Répétition de motifs simples avec variations progressives",
+      timeframe: "1960-présent",
+      artists: ["Steve Reich", "Philip Glass", "Terry Riley"],
       keyCharacteristics: [
-        "Arrangements sophistiqués",
-        "Influences jazz et soul vintage",
-        "Expérimentation sonore",
-        "Lyrics introspectifs",
-        "Groove organique"
+        "Répétition",
+        "Processus",
+        "Tonalité simple",
+        "Pulsation régulière"
       ],
-      instruments: "Instruments live, synthétiseurs, programmation subtile, voix",
-      subgenres: ["Alternative R&B", "Future soul", "Jazz-rap", "Progressive soul"]
+      instruments: ["Ensembles instrumentaux", "Voix", "Électronique"],
+      subgenres: ["Phase music", "Process music", "Post-minimalisme"]
+    }
+  ];
+
+  const genreInfluences = [
+    { 
+      id: "baroque", 
+      name: "Baroque",
+      description: "1600-1750",
+      color: "#8B5CF6"
     },
+    { 
+      id: "classical", 
+      name: "Classique",
+      description: "1750-1820",
+      color: "#EC4899",
+      influences: ["baroque"]
+    },
+    { 
+      id: "romantic", 
+      name: "Romantisme",
+      description: "1800-1910",
+      color: "#10B981",
+      influences: ["classical"]
+    },
+    { 
+      id: "modern", 
+      name: "Moderne",
+      description: "1890-1975",
+      color: "#F59E0B",
+      influences: ["romantic", "baroque"]
+    },
+    { 
+      id: "contemporary", 
+      name: "Contemporain",
+      description: "1945-présent",
+      color: "#3B82F6",
+      influences: ["modern"]
+    }
   ];
 
   return (
     <div className="container py-10">
       <div className="mb-10">
+        <Button variant="ghost" asChild className="mb-4">
+          <Link to="/musique" className="flex items-center gap-2">
+            <ArrowLeftIcon className="h-4 w-4" />
+            Retour à Musique
+          </Link>
+        </Button>
         <h1 className="text-4xl font-bold mb-4">Culture Musicale</h1>
         <p className="text-lg text-muted-foreground">
-          Explorez les différents genres, époques et courants qui ont façonné l'histoire de la musique.
+          Explorez l'histoire de la musique à travers les âges, des origines à nos jours.
         </p>
       </div>
 
-      <Tabs defaultValue="periodes" className="mb-10">
+      <Tabs defaultValue="classical" className="mb-10">
         <TabsList className="mb-4">
-          <TabsTrigger value="periodes">Périodes historiques</TabsTrigger>
-          <TabsTrigger value="genres">Genres musicaux</TabsTrigger>
-          <TabsTrigger value="influences">Influences & évolutions</TabsTrigger>
+          <TabsTrigger value="classical">Musique Classique</TabsTrigger>
+          <TabsTrigger value="romantic">Musique Romantique</TabsTrigger>
+          <TabsTrigger value="modern">Musique Moderne</TabsTrigger>
+          <TabsTrigger value="contemporary">Musique Contemporaine</TabsTrigger>
         </TabsList>
-        
-        <TabsContent value="periodes">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold mb-2">Chronologie musicale</h2>
-            <p className="text-muted-foreground">
-              La musique occidentale s'est développée à travers plusieurs périodes distinctes, chacune avec ses propres caractéristiques stylistiques, innovations et compositeurs emblématiques.
-            </p>
-          </div>
 
-          <Tabs defaultValue="classique">
-            <TabsList className="mb-6">
-              <TabsTrigger value="medievale">Médiévale</TabsTrigger>
-              <TabsTrigger value="renaissance">Renaissance</TabsTrigger>
-              <TabsTrigger value="classique">Classique</TabsTrigger>
-              <TabsTrigger value="moderne">Moderne</TabsTrigger>
-              <TabsTrigger value="contemporaine">Contemporaine</TabsTrigger>
-            </TabsList>
-            
-            <MusicalPeriodTab
-              value="medievale"
-              title="Période Médiévale (500-1400)"
-              description="L'époque médiévale voit l'émergence du plain-chant grégorien, des troubadours et l'établissement de la notation musicale."
-              timelineEvents={[
-                {
-                  year: "590-604",
-                  title: "Le pape Grégoire Ier",
-                  description: "Compilation et standardisation du chant grégorien"
-                },
-                {
-                  year: "1000-1100",
-                  title: "Guido d'Arezzo",
-                  description: "Invention de la notation musicale sur portée"
-                },
-                {
-                  year: "1150-1250",
-                  title: "École de Notre-Dame",
-                  description: "Développement de la polyphonie et du motet"
-                },
-                {
-                  year: "1300-1377",
-                  title: "Ars Nova",
-                  description: "Innovations rythmiques et structurelles par Guillaume de Machaut"
-                }
-              ]}
-              genres={[
-                {
-                  title: "Chant Grégorien",
-                  description: "Musique sacrée monodique chantée a cappella",
-                  characteristics: [
-                    {title: "Texture", description: "Monophonique (une seule ligne mélodique)"},
-                    {title: "Rythme", description: "Libre, suivant le texte liturgique"}
-                  ],
-                  artists: [
-                    {name: "Anonymes (moines)"}
-                  ],
-                  timeframe: "6ème-14ème siècles"
-                },
-                {
-                  title: "Musique des Troubadours",
-                  description: "Chansons profanes sur l'amour courtois et la chevalerie",
-                  characteristics: [
-                    {title: "Forme", description: "Strophique avec refrains"},
-                    {title: "Thèmes", description: "Amour courtois, exploits chevaleresques"}
-                  ],
-                  artists: [
-                    {name: "Bernard de Ventadour"},
-                    {name: "Thibaut de Champagne"}
-                  ],
-                  timeframe: "12ème-13ème siècles"
-                }
-              ]}
-            />
-            
-            <MusicalPeriodTab
-              value="renaissance"
-              title="Renaissance (1400-1600)"
-              description="Période marquée par un retour aux idéaux de l'Antiquité, l'humanisme, et l'essor de la polyphonie vocale."
-              timelineEvents={[
-                {
-                  year: "1425-1450",
-                  title: "Guillaume Dufay",
-                  description: "Développement du style bourguignon"
-                },
-                {
-                  year: "1501",
-                  title: "Ottaviano Petrucci",
-                  description: "Premières partitions musicales imprimées"
-                },
-                {
-                  year: "1540-1550",
-                  title: "Concile de Trente",
-                  description: "Réforme de la musique sacrée catholique"
-                },
-                {
-                  year: "1550-1600",
-                  title: "École vénitienne",
-                  description: "Développement de la polychoralité par Andrea et Giovanni Gabrieli"
-                }
-              ]}
-              genres={[
-                {
-                  title: "Chanson polyphonique",
-                  description: "Compositions profanes à plusieurs voix",
-                  characteristics: [
-                    {title: "Texture", description: "Polyphonique (3-5 voix)"},
-                    {title: "Forme", description: "Formes fixes comme le rondeau et la ballade"}
-                  ],
-                  artists: [
-                    {name: "Josquin des Prez"},
-                    {name: "Clément Janequin"}
-                  ],
-                  timeframe: "15ème-16ème siècles"
-                },
-                {
-                  title: "Madrigal",
-                  description: "Composition vocale expressive sur des textes poétiques",
-                  characteristics: [
-                    {title: "Expression", description: "Word painting (illustration musicale du texte)"},
-                    {title: "Harmonie", description: "Chromatisme et dissonances expressives"}
-                  ],
-                  artists: [
-                    {name: "Carlo Gesualdo"},
-                    {name: "Claudio Monteverdi"}
-                  ],
-                  timeframe: "16ème siècle"
-                }
-              ]}
-            />
-            
-            <MusicalPeriodTab
-              value="classique"
-              title="Période Classique (1600-1900)"
-              description="Englobant les périodes baroque, classique et romantique, cette ère a vu l'établissement de formes musicales qui perdurent encore aujourd'hui."
-              timelineEvents={[
-                {
-                  year: "1607",
-                  title: "Monteverdi - Orfeo",
-                  description: "Un des premiers opéras importants"
-                },
-                {
-                  year: "1750",
-                  title: "Mort de J.S. Bach",
-                  description: "Marque conventionnellement la fin de l'ère baroque"
-                },
-                {
-                  year: "1803",
-                  title: "Beethoven - Symphonie n°3",
-                  description: "Œuvre pivotale annonçant le romantisme"
-                },
-                {
-                  year: "1876",
-                  title: "Wagner - L'Anneau du Nibelung",
-                  description: "Apogée du drame musical romantique"
-                }
-              ]}
-              genres={[
-                {
-                  title: "Baroque",
-                  description: "Style ornemental riche en contrepoint et basse continue",
-                  characteristics: [
-                    {title: "Forme", description: "Concerto, sonate, suite"},
-                    {title: "Technique", description: "Basse continue, ornementation élaborée"}
-                  ],
-                  artists: [
-                    {name: "J.S. Bach"},
-                    {name: "G.F. Haendel"}
-                  ],
-                  timeframe: "1600-1750"
-                },
-                {
-                  title: "Classicisme",
-                  description: "Style équilibré privilégiant la clarté et la symétrie",
-                  characteristics: [
-                    {title: "Forme", description: "Forme sonate, symphonie classique"},
-                    {title: "Esthétique", description: "Équilibre, clarté, élégance"}
-                  ],
-                  artists: [
-                    {name: "W.A. Mozart"},
-                    {name: "L.v. Beethoven (période précoce)"}
-                  ],
-                  timeframe: "1750-1820"
-                },
-                {
-                  title: "Romantisme",
-                  description: "Expression émotionnelle intense, nationalisme et innovation formelle",
-                  characteristics: [
-                    {title: "Expression", description: "Émotions exacerbées, individualité"},
-                    {title: "Innovations", description: "Harmonie étendue, orchestration riche"}
-                  ],
-                  artists: [
-                    {name: "Frédéric Chopin"},
-                    {name: "Richard Wagner"}
-                  ],
-                  timeframe: "1820-1900"
-                }
-              ]}
-            />
-            
-            <MusicalPeriodTab
-              value="moderne"
-              title="Période Moderne (1900-1960)"
-              description="Époque de rupture avec les traditions et d'innovations radicales en réponse aux bouleversements de la première moitié du 20ème siècle."
-              timelineEvents={[
-                {
-                  year: "1913",
-                  title: "Stravinsky - Le Sacre du Printemps",
-                  description: "Révolution rythmique et harmonique"
-                },
-                {
-                  year: "1923",
-                  title: "Schönberg - Méthode de composition à 12 sons",
-                  description: "Développement du dodécaphonisme"
-                },
-                {
-                  year: "1939-1945",
-                  title: "Seconde Guerre Mondiale",
-                  description: "Dispersion des compositeurs et nouvelles influences"
-                },
-                {
-                  year: "1948",
-                  title: "Musique concrète",
-                  description: "Pierre Schaeffer commence ses expériences à la RTF"
-                }
-              ]}
-              genres={[
-                {
-                  title: "Impressionnisme musical",
-                  description: "Style évocateur inspiré des impressionnistes en peinture",
-                  characteristics: [
-                    {title: "Harmonie", description: "Gammes par tons, modes exotiques"},
-                    {title: "Texture", description: "Sonorités vaporeuses, timbres recherchés"}
-                  ],
-                  artists: [
-                    {name: "Claude Debussy"},
-                    {name: "Maurice Ravel"}
-                  ],
-                  timeframe: "1890-1920"
-                },
-                {
-                  title: "Dodécaphonisme",
-                  description: "Technique de composition utilisant les 12 sons de la gamme chromatique",
-                  characteristics: [
-                    {title: "Technique", description: "Séries de 12 sons sans hiérarchie tonale"},
-                    {title: "Expression", description: "Expressionnisme, tension dissonante"}
-                  ],
-                  artists: [
-                    {name: "Arnold Schönberg"},
-                    {name: "Alban Berg"}
-                  ],
-                  timeframe: "1920-1950"
-                }
-              ]}
-            />
-            
-            <MusicalPeriodTab
-              value="contemporaine"
-              title="Période Contemporaine (1960-présent)"
-              description="Caractérisée par une grande diversité d'approches, du minimalisme à l'expérimentation électronique et l'éclatement des genres."
-              timelineEvents={[
-                {
-                  year: "1965",
-                  title: "Terry Riley - In C",
-                  description: "Œuvre fondatrice du minimalisme"
-                },
-                {
-                  year: "1970s",
-                  title: "Essor de la musique électronique",
-                  description: "Développement des synthétiseurs et de la musique assistée par ordinateur"
-                },
-                {
-                  year: "1980s",
-                  title: "Retour à la tonalité",
-                  description: "Mouvement néo-romantique et postmoderne"
-                },
-                {
-                  year: "2000s",
-                  title: "Ère numérique",
-                  description: "Démocratisation des outils de création et diffusion musicale"
-                }
-              ]}
-              genres={[
-                {
-                  title: "Minimalisme",
-                  description: "Style basé sur la répétition et les changements graduels",
-                  characteristics: [
-                    {title: "Structure", description: "Processus répétitifs, phasage"},
-                    {title: "Texture", description: "Pulsation constante, superpositions rythmiques"}
-                  ],
-                  artists: [
-                    {name: "Steve Reich"},
-                    {name: "Philip Glass"}
-                  ],
-                  timeframe: "1960-présent"
-                },
-                {
-                  title: "Musique spectrale",
-                  description: "Basée sur l'analyse du spectre sonore et ses transformations",
-                  characteristics: [
-                    {title: "Harmonie", description: "Dérivée du spectre harmonique naturel"},
-                    {title: "Recherche", description: "Exploration du timbre et microtonalité"}
-                  ],
-                  artists: [
-                    {name: "Gérard Grisey"},
-                    {name: "Tristan Murail"}
-                  ],
-                  timeframe: "1970-présent"
-                }
-              ]}
-            />
-          </Tabs>
-        </TabsContent>
-        
-        <TabsContent value="genres">
-          <div className="space-y-16">
-            <GenreGridSection 
-              title="Musique Classique" 
-              description="Traditions musicales savantes européennes développées du Moyen Âge à nos jours"
-              genres={classicalGenres}
-              columns={3}
-            />
-            
-            <Separator className="my-8" />
-            
-            <GenreGridSection 
-              title="Musique Populaire"
-              description="Genres ayant émergé aux 20ème et 21ème siècles avec une large diffusion culturelle"
-              genres={popularGenres}
-              columns={3}
-            />
-            
-            <Separator className="my-8" />
-            
-            <GenreGridSection 
-              title="Musiques du Monde"
-              description="Traditions musicales issues de diverses cultures à travers le globe"
-              genres={worldGenres}
-              columns={3}
-            />
-            
-            <Separator className="my-8" />
-            
-            <GenreGridSection 
-              title="Musique Contemporaine"
-              description="Genres actuels reflétant l'évolution technologique et la fusion des influences"
-              genres={contemporaryGenres}
-              columns={3}
-            />
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="influences">
-          <div className="space-y-6">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-2">Interconnexions musicales</h2>
-              <p className="text-muted-foreground">
-                La musique est un phénomène culturel en constante évolution, où les genres s'influencent mutuellement à travers le temps et l'espace.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Évolution des genres</CardTitle>
-                  <CardDescription>Comment les styles musicaux se transforment au fil du temps</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <MusicInfluenceChart />
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Influences transculturelles</CardTitle>
-                  <CardDescription>Échanges entre traditions musicales à travers le monde</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p>
-                    Les échanges culturels ont toujours joué un rôle crucial dans l'évolution musicale, créant des fusions et des hybridations riches.
-                  </p>
-                  
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-lg font-medium">Exemples marquants:</h3>
-                      <ul className="list-disc pl-5 mt-2 space-y-1 text-muted-foreground">
-                        <li>Fusion du blues africain-américain et de la country pour créer le rock'n'roll</li>
-                        <li>Influence des modes arabes sur le flamenco espagnol</li>
-                        <li>Impact des rythmes africains sur la musique cubaine et brésilienne</li>
-                        <li>Synthèse des traditions indiennes et occidentales dans la world music</li>
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-lg font-medium">Facteurs d'influence:</h3>
-                      <div className="grid grid-cols-2 gap-4 mt-2">
-                        <div className="bg-primary/10 p-3 rounded-md">
-                          <h4 className="font-medium">Migrations</h4>
-                          <p className="text-sm text-muted-foreground">Déplacements de populations et diaspora</p>
-                        </div>
-                        
-                        <div className="bg-primary/10 p-3 rounded-md">
-                          <h4 className="font-medium">Colonisation</h4>
-                          <p className="text-sm text-muted-foreground">Impositions et métissages culturels</p>
-                        </div>
-                        
-                        <div className="bg-primary/10 p-3 rounded-md">
-                          <h4 className="font-medium">Technologie</h4>
-                          <p className="text-sm text-muted-foreground">Diffusion mondiale et accessibilité</p>
-                        </div>
-                        
-                        <div className="bg-primary/10 p-3 rounded-md">
-                          <h4 className="font-medium">Économie</h4>
-                          <p className="text-sm text-muted-foreground">Circuits commerciaux et industrie</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-            
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Études de cas: fusions musicales significatives</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <h3 className="font-semibold">Jazz-fusion</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Dans les années 1960-70, Miles Davis et d'autres musiciens ont fusionné le jazz avec le rock et les musiques électroniques, créant un nouveau langage musical qui a influencé des générations d'artistes.
-                    </p>
-                    <p className="text-sm font-medium">Œuvres clés: "Bitches Brew" (Miles Davis), "Birds of Fire" (Mahavishnu Orchestra)</p>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h3 className="font-semibold">Afrobeat</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Fela Kuti a créé l'afrobeat en mélangeant les rythmes yoruba, le highlife ghanéen, le jazz et le funk américain, donnant naissance à un style politiquement engagé qui résonne encore aujourd'hui.
-                    </p>
-                    <p className="text-sm font-medium">Œuvres clés: "Zombie" (Fela Kuti), "Open & Close" (Fela Kuti)</p>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h3 className="font-semibold">Trip-hop</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Né à Bristol dans les années 1990, le trip-hop combine hip-hop, musique électronique, dub jamaïcain et ambiances cinématographiques, créant une esthétique urbaine distinctive.
-                    </p>
-                    <p className="text-sm font-medium">Œuvres clés: "Dummy" (Portishead), "Blue Lines" (Massive Attack)</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
+        <MusicalPeriodTab
+          value="classical"
+          title="Musique Classique"
+          description="La musique classique couvre une vaste période allant du baroque au début du XXe siècle, caractérisée par des formes structurées et une esthétique raffinée."
+          timelineEvents={[
+            { year: "1600", title: "Début de la période baroque", description: "Émergence de l'opéra et développement du style concertant.", icon: <History className="h-5 w-5" /> },
+            { year: "1750", title: "Mort de Jean-Sébastien Bach", description: "Fin de la période baroque et transition vers le classicisme.", icon: <History className="h-5 w-5" /> },
+            { year: "1770", title: "Premières œuvres de Mozart", description: "Développement du classicisme viennois.", icon: <History className="h-5 w-5" /> },
+            { year: "1820", title: "Fin de la période classique", description: "Début du romantisme musical.", icon: <History className="h-5 w-5" /> },
+          ]}
+          genres={[
+            {
+              title: "Musique Baroque",
+              description: "Caractérisée par l'ornementation et la complexité contrapuntique",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/baroque.jpg",
+              linkUrl: "/genres/baroque",
+              characteristics: [
+                { title: "Contrepoint", description: "Technique d'écriture où plusieurs mélodies indépendantes se combinent harmonieusement." },
+                { title: "Basse continue", description: "Ligne de basse continue soutenant l'harmonie, souvent jouée par le clavecin et la viole de gambe." },
+                { title: "Ornementation", description: "Utilisation de trilles, de gruppetto et d'autres ornements pour embellir la mélodie." },
+              ],
+              artists: [
+                { name: "Johann Sebastian Bach", description: "Maître du baroque, connu pour ses œuvres pour orgue, ses cantates et ses concertos." },
+                { name: "Antonio Vivaldi", description: "Compositeur virtuose, célèbre pour ses concertos pour violon, notamment Les Quatre Saisons." },
+                { name: "Georg Friedrich Händel", description: "Compositeur d'opéras et d'oratorios, dont le Messie." },
+              ],
+              timeframe: "1600-1750",
+            },
+            {
+              title: "Période Classique",
+              description: "Clarté structurelle et équilibre formel",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/classique.jpg",
+              linkUrl: "/genres/classique",
+              characteristics: [
+                { title: "Forme sonate", description: "Structure en trois parties : exposition, développement et récapitulation." },
+                { title: "Mélodie", description: "Mélodies claires et équilibrées, souvent accompagnées d'une harmonie simple." },
+                { title: "Orchestration", description: "Utilisation standardisée de l'orchestre symphonique." },
+              ],
+              artists: [
+                { name: "Wolfgang Amadeus Mozart", description: "Prodige musical, compositeur de symphonies, de concertos et d'opéras." },
+                { name: "Ludwig van Beethoven", description: "Compositeur révolutionnaire, connu pour ses symphonies et ses sonates pour piano." },
+                { name: "Joseph Haydn", description: "Père de la symphonie et du quatuor à cordes." },
+              ],
+              timeframe: "1750-1820",
+            },
+          ]}
+        />
+
+        <MusicalPeriodTab
+          value="romantic"
+          title="Musique Romantique"
+          description="Le romantisme musical met l'accent sur l'émotion, l'individualisme et l'expression personnelle, avec des œuvres souvent grandioses et passionnées."
+          timelineEvents={[
+            { year: "1820", title: "Début de la période romantique", description: "Émergence de compositeurs tels que Schubert et Beethoven.", icon: <History className="h-5 w-5" /> },
+            { year: "1830", title: "Apogée du romantisme", description: "Œuvres de Chopin, Liszt et Schumann.", icon: <History className="h-5 w-5" /> },
+            { year: "1850", title: "Romantisme tardif", description: "Wagner et Brahms dominent la scène musicale.", icon: <History className="h-5 w-5" /> },
+            { year: "1900", title: "Fin du romantisme", description: "Mahler et Strauss marquent la fin de cette période.", icon: <History className="h-5 w-5" /> },
+          ]}
+          genres={[
+            {
+              title: "Romantisme précoce",
+              description: "Exaltation des émotions et individualisme",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/romantique-precoce.jpg",
+              linkUrl: "/genres/romantismeprecoce",
+              characteristics: [
+                { title: "Expressivité", description: "Accent mis sur l'expression des émotions et des sentiments personnels." },
+                { title: "Liberté formelle", description: "Utilisation de formes musicales plus libres et moins rigides que dans le classicisme." },
+                { title: "Mélodies", description: "Mélodies lyriques et passionnées." },
+              ],
+              artists: [
+                { name: "Franz Schubert", description: "Maître du lied, compositeur de mélodies expressives et intimes." },
+                { name: "Frédéric Chopin", description: "Virtuose du piano, compositeur de nocturnes, de mazurkas et de polonaises." },
+                { name: "Robert Schumann", description: "Compositeur de symphonies, de musique de chambre et de lieder." },
+              ],
+              timeframe: "1800-1850",
+            },
+            {
+              title: "Romantisme tardif",
+              description: "Grandiose et complexité accrue",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/romantique-tardif.jpg",
+              linkUrl: "/genres/romantismetardif",
+              characteristics: [
+                { title: "Orchestration", description: "Utilisation d'orchestres massifs et de couleurs instrumentales riches." },
+                { title: "Harmonies", description: "Harmonies complexes et chromatiques." },
+                { title: "Durées", description: "Œuvres de longue durée, souvent conçues comme des voyages émotionnels." },
+              ],
+              artists: [
+                { name: "Johannes Brahms", description: "Compositeur de symphonies, de concertos et de musique de chambre." },
+                { name: "Richard Wagner", description: "Compositeur d'opéras révolutionnaires, tels que la Tétralogie." },
+                { name: "Gustav Mahler", description: "Compositeur de symphonies monumentales et expressives." },
+              ],
+              timeframe: "1850-1910",
+            },
+          ]}
+        />
+
+        <MusicalPeriodTab
+          value="modern"
+          title="Musique Moderne"
+          description="La musique moderne explore de nouvelles voies esthétiques, remettant en question les conventions du passé et expérimentant avec l'atonalité, le rythme et le timbre."
+          timelineEvents={[
+            { year: "1900", title: "Début de la musique moderne", description: "Émergence de compositeurs tels que Debussy et Stravinsky.", icon: <History className="h-5 w-5" /> },
+            { year: "1913", title: "Le Sacre du printemps", description: "Création du Sacre du printemps de Stravinsky, un scandale qui marque l'histoire de la musique.", icon: <History className="h-5 w-5" /> },
+            { year: "1920", title: "Expressionnisme", description: "Développement de l'expressionnisme musical avec Schoenberg et Berg.", icon: <History className="h-5 w-5" /> },
+            { year: "1945", title: "Fin de la musique moderne", description: "La fin de la Seconde Guerre mondiale marque une transition vers la musique contemporaine.", icon: <History className="h-5 w-5" /> },
+          ]}
+          genres={[
+            {
+              title: "Impressionnisme",
+              description: "Évocation d'atmosphères et de sensations",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/impressionnisme.jpg",
+              linkUrl: "/genres/impressionnisme",
+              characteristics: [
+                { title: "Harmonies", description: "Harmonies non fonctionnelles et utilisation de gammes modales." },
+                { title: "Timbres", description: "Timbres délicats et raffinés." },
+                { title: "Inspiration", description: "Inspiration de la nature et des arts visuels." },
+              ],
+              artists: [
+                { name: "Claude Debussy", description: "Compositeur de Prélude à l'après-midi d'un faune et de La Mer." },
+                { name: "Maurice Ravel", description: "Compositeur de Boléro et de Daphnis et Chloé." },
+                { name: "Erik Satie", description: "Compositeur d'oeuvres minimalistes et humoristiques." },
+              ],
+              timeframe: "1875-1925",
+            },
+            {
+              title: "Expressionnisme",
+              description: "Distorsion émotionnelle et atonalité",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/expressionnisme.jpg",
+              linkUrl: "/genres/expressionnisme",
+              characteristics: [
+                { title: "Atonalité", description: "Absence de tonalité et utilisation de la dissonance." },
+                { title: "Émotion", description: "Expression intense des émotions et des sentiments." },
+                { title: "Formes", description: "Formes musicales brèves et concentrées." },
+              ],
+              artists: [
+                { name: "Arnold Schoenberg", description: "Compositeur de Pierrot lunaire et de Moïse et Aaron." },
+                { name: "Alban Berg", description: "Compositeur de Wozzeck et de Lulu." },
+                { name: "Anton Webern", description: "Compositeur d'oeuvres minimalistes et atonales." },
+              ],
+              timeframe: "1908-1930",
+            },
+          ]}
+        />
+
+        <MusicalPeriodTab
+          value="contemporary"
+          title="Musique Contemporaine"
+          description="La musique contemporaine englobe une grande diversité de styles et de techniques, allant de la musique sérielle à la musique électronique, en passant par le minimalisme et la musique concrète."
+          timelineEvents={[
+            { year: "1945", title: "Début de la musique contemporaine", description: "Après la Seconde Guerre mondiale, de nouvelles esthétiques émergent.", icon: <History className="h-5 w-5" /> },
+            { year: "1950", title: "Musique concrète", description: "Pierre Schaeffer crée la musique concrète en utilisant des sons enregistrés.", icon: <History className="h-5 w-5" /> },
+            { year: "1960", title: "Minimalisme", description: "Le minimalisme se développe avec des compositeurs tels que Reich et Glass.", icon: <History className="h-5 w-5" /> },
+            { year: "1970", title: "Musique électronique", description: "La musique électronique prend de l'importance avec l'essor des synthétiseurs.", icon: <History className="h-5 w-5" /> },
+          ]}
+          genres={[
+            {
+              title: "Musique sérielle",
+              description: "Organisation mathématique des paramètres sonores",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/serielle.jpg",
+              linkUrl: "/genres/serielle",
+              characteristics: [
+                { title: "Sérialisme", description: "Organisation de tous les paramètres musicaux (hauteur, durée, intensité, timbre) en séries." },
+                { title: "Mathématiques", description: "Utilisation de structures mathématiques complexes." },
+                { title: "Dissonance", description: "Dissonances contrôlées et absence de tonalité." },
+              ],
+              artists: [
+                { name: "Pierre Boulez", description: "Compositeur de Structures et de Le Marteau sans maître." },
+                { name: "Karlheinz Stockhausen", description: "Compositeur de Gruppen et de Kontakte." },
+                { name: "Milton Babbitt", description: "Compositeur de Philomel et de Correspondences." },
+              ],
+              timeframe: "1950-présent",
+            },
+            {
+              title: "Musique concrète",
+              description: "Utilisation de sons enregistrés comme matériau musical",
+              icon: <Music className="h-5 w-5" />,
+              imageSrc: "/images/culture-musicale/concrete.jpg",
+              linkUrl: "/genres/concrete",
+              characteristics: [
+                { title: "Sons concrets", description: "Utilisation de sons enregistrés de la vie quotidienne." },
+                { title: "Collages", description: "Collages sonores et transformations des sons." },
+                { title: "Absence", description: "Absence de notation traditionnelle." },
+              ],
+              artists: [
+                { name: "Pierre Schaeffer", description: "Fondateur de la musique concrète, compositeur d'Étude aux chemins de fer." },
+                { name: "Pierre Henry", description: "Compositeur de Symphonie pour un homme seul." },
+                { name: "Bernard Parmegiani", description: "Compositeur de De Natura Sonorum." },
+              ],
+              timeframe: "1948-présent",
+            },
+          ]}
+        />
       </Tabs>
-      
+
       <Separator className="my-8" />
-      
-      <div className="mb-10">
-        <h2 className="text-2xl font-bold mb-4">Ressources d'apprentissage</h2>
+
+      <MusicInfluenceChart title="Influences entre périodes musicales" genres={genreInfluences} />
+
+      <div className="mt-10">
+        <h2 className="text-2xl font-bold mb-4">Ressources</h2>
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="card-hover">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-primary" />
-                Analyses musicales
+                <FileText className="h-5 w-5 text-primary" />
+                Articles détaillés
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Explorations détaillées des œuvres emblématiques, de leurs structures et de leur contexte historique.
+                Explorez des articles approfondis sur les différentes périodes et genres musicaux.
               </p>
               <Button asChild variant="outline">
-                <Link to="/culture/analyses">Découvrir</Link>
+                <Link to="/culture/articles">Lire les articles</Link>
               </Button>
             </CardContent>
           </Card>
-          
+
+          <Card className="card-hover">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Layers className="h-5 w-5 text-primary" />
+                Analyse comparative
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Comparez les caractéristiques des différentes périodes musicales pour mieux comprendre leur évolution.
+              </p>
+              <Button asChild variant="outline">
+                <Link to="/culture/comparaisons">Voir les comparaisons</Link>
+              </Button>
+            </CardContent>
+          </Card>
+
           <Card className="card-hover">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Globe className="h-5 w-5 text-primary" />
-                Atlas musical
+                Musique du monde
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Cartographie des traditions musicales mondiales et de leurs interconnexions culturelles.
+                Découvrez les traditions musicales du monde entier et leur influence sur la musique occidentale.
               </p>
               <Button asChild variant="outline">
-                <Link to="/culture/atlas">Explorer</Link>
+                <Link to="/culture/monde">Explorer la musique du monde</Link>
               </Button>
             </CardContent>
           </Card>
-          
-          <Card className="card-hover">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-primary" />
-                Chronologie interactive
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Parcourez l'histoire de la musique à travers une ligne du temps interactive et multimédia.
-              </p>
-              <Button asChild variant="outline">
-                <Link to="/culture/chronologie">Naviguer</Link>
-              </Button>
-            </CardContent>
-          </Card>
+        </div>
+      </div>
+
+      <div className="bg-primary/5 p-6 rounded-lg mt-10">
+        <h2 className="text-2xl font-bold mb-4">Écoute guidée</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Sélection musicale</h3>
+            <p className="text-muted-foreground mb-3">
+              Découvrez des œuvres emblématiques de chaque période musicale.
+            </p>
+            <div className="space-y-2">
+              <div className="bg-background p-3 rounded-md flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Bach - Toccata et Fugue en ré mineur</p>
+                  <p className="text-xs text-muted-foreground">Musique Baroque</p>
+                </div>
+                <Headphones className="h-5 w-5 text-muted-foreground" />
+              </div>
+              <div className="bg-background p-3 rounded-md flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Mozart - Symphonie n°40</p>
+                  <p className="text-xs text-muted-foreground">Musique Classique</p>
+                </div>
+                <Headphones className="h-5 w-5 text-muted-foreground" />
+              </div>
+              <div className="bg-background p-3 rounded-md flex items-center justify-between">
+                <div>
+                  <p className="font-medium">Beethoven - Symphonie n°5</p>
+                  <p className="text-xs text-muted-foreground">Musique Romantique</p>
+                </div>
+                <Headphones className="h-5 w-5 text-muted-foreground" />
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Analyse d'œuvres</h3>
+            <p className="text-muted-foreground mb-3">
+              Plongez au cœur de la musique avec nos analyses détaillées.
+            </p>
+            <Button className="w-full" variant="default">
+              Explorer les analyses
+            </Button>
+            <p className="text-sm text-center text-muted-foreground mt-3">
+              Découvrez les secrets des grands compositeurs
+            </p>
+          </div>
         </div>
       </div>
     </div>

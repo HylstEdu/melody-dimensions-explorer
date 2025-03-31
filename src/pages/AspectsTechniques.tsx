@@ -1,11 +1,10 @@
-
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Code, BookOpen, Music, Waveform, Settings, Lightbulb, BookOpen as Book, Clock } from "lucide-react";
+import { Code, BookOpen, Music, Waves, Settings, Lightbulb, BookOpen as Book, Clock } from "lucide-react";
 import FrequencySpectrumCard from "@/components/FrequencySpectrumCard";
 
 const AspectsTechniques = () => {
@@ -458,7 +457,7 @@ const AspectsTechniques = () => {
                 
                 <div className="space-y-2">
                   <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <Waveform className="h-5 w-5 text-muted-foreground" />
+                    <Waves className="h-5 w-5 text-muted-foreground" />
                     Traitement audio avancé
                   </h3>
                   <p className="text-muted-foreground">

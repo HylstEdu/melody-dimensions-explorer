@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Clock, HelpCircle, History, Music, NotebookPen, FileText, Layers, Globe, Headphones } from "lucide-react";
+import { Clock, HelpCircle, History, Music, NotebookPen, FileText, Layers, Globe, Headphones, ArrowLeft } from "lucide-react";
 
 import GenreGridSection from "@/components/music/GenreGridSection";
 import MusicalPeriodTab from "@/components/music/MusicalPeriodTab";
@@ -234,7 +234,7 @@ const CultureMusicale = () => {
       <div className="mb-10">
         <Button variant="ghost" asChild className="mb-4">
           <Link to="/musique" className="flex items-center gap-2">
-            <ArrowLeftIcon className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4" />
             Retour à Musique
           </Link>
         </Button>

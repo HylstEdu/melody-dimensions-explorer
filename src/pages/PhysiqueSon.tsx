@@ -15,6 +15,7 @@ import HumanHearing from "@/components/PhysicsContent/HumanHearing";
 import SpectralAnalysis from "@/components/PhysicsContent/SpectralAnalysis";
 import { Badge } from "@/components/ui/badge";
 import ToneGenerator from "@/components/ToneGenerator";
+import ToneGeneratorUsage from "@/components/ToneGeneratorUsage";
 
 const PhysiqueSon = () => {
   const frequencySpectrumData = [
@@ -47,9 +48,6 @@ const PhysiqueSon = () => {
             <CardContent>
               <div className="space-y-4">
                 <WaveVisualizer />
-                <p className="text-sm text-muted-foreground text-center">
-                  Cliquez d'abord sur la page pour activer l'audio, puis utilisez le bouton "Écouter l'onde" pour entendre le son généré
-                </p>
               </div>
             </CardContent>
           </Card>
@@ -84,7 +82,7 @@ const PhysiqueSon = () => {
         </div>
       </div>
 
-      <div className="mb-10">
+      <div className="space-y-6 mb-10">
         <Card className="overflow-hidden">
           <CardHeader>
             <div className="flex justify-between items-center">
@@ -99,6 +97,8 @@ const PhysiqueSon = () => {
             <ToneGenerator />
           </CardContent>
         </Card>
+        
+        <ToneGeneratorUsage />
       </div>
 
       <Tabs defaultValue="acoustique" className="mb-10">

@@ -95,15 +95,15 @@ const RssFeedReader = () => {
           }
         });
         
-        const selectedSource = RSS_SOURCES.find(source => source.id === activeSource);
+        const currentSource = RSS_SOURCES.find(source => source.id === activeSource);
         
-        if (!selectedSource) {
+        if (!currentSource) {
           throw new Error("Source RSS non trouvée");
         }
         
-        console.log("Fetching RSS feed from:", selectedSource.url);
+        console.log("Fetching RSS feed from:", currentSource.url);
         
-        const response = await fetch(selectedSource.url);
+        const response = await fetch(currentSource.url);
         
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération du flux RSS");
@@ -139,6 +139,9 @@ const RssFeedReader = () => {
       } catch (error) {
         console.error("Erreur lors du chargement du flux RSS:", error);
         
+        // Get the current source for fallback data
+        const currentSource = RSS_SOURCES.find(source => source.id === activeSource);
+        
         // Fallback data when the feed can't be loaded
         setFeedItems([
           {
@@ -146,7 +149,7 @@ const RssFeedReader = () => {
             link: "https://www.francemusique.fr/jazz/festival-jazz-montreux-2025",
             pubDate: "2025-04-01T10:15:00",
             contentSnippet: "La 60ème édition du Festival de Jazz de Montreux annonce une programmation exceptionnelle. Des légendes du jazz et des artistes émergents se partageront la scène au bord du lac Léman.",
-            creator: selectedSource?.name || "France Musique",
+            creator: currentSource?.name || "France Musique",
             categories: ["Jazz", "Festival"]
           },
           {
@@ -154,7 +157,7 @@ const RssFeedReader = () => {
             link: "https://www.francemusique.fr/musique-classique/record-orchestre-virtuel",
             pubDate: "2025-03-29T14:30:00",
             contentSnippet: "Un projet international a réuni virtuellement 10 000 musiciens de 150 pays pour interpréter la Symphonie n°9 de Beethoven. Un record mondial qui célèbre l'unité par la musique.",
-            creator: selectedSource?.name || "France Musique",
+            creator: currentSource?.name || "France Musique",
             categories: ["Classique", "Innovation"]
           },
           {
@@ -162,7 +165,7 @@ const RssFeedReader = () => {
             link: "https://www.francemusique.fr/musique-classique/decouverte-partition-mozart",
             pubDate: "2025-03-27T09:45:00",
             contentSnippet: "Des chercheurs ont identifié une œuvre jusqu'alors inconnue de Wolfgang Amadeus Mozart dans les archives de la Bibliothèque nationale de Prague. Les premières analyses confirment l'authenticité du document.",
-            creator: selectedSource?.name || "France Musique",
+            creator: currentSource?.name || "France Musique",
             categories: ["Classique", "Découverte"]
           }
         ]);

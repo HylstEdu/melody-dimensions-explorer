@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from "react-router-dom";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, Newspaper, LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -16,7 +16,9 @@ export function MainNavigation() {
     { name: "Physique du Son", href: "/physique-son" },
     { name: "Culture Musicale", href: "/culture" },
     { name: "Aspects Techniques", href: "/technique" },
-    { name: "Fonctions Sociales", href: "/societe" }
+    { name: "Fonctions Sociales", href: "/societe" },
+    { name: "Actualité", href: "/actualite", icon: Newspaper },
+    { name: "Ressources", href: "/ressources", icon: LinkIcon }
   ];
 
   const isActive = (path: string) => {
@@ -57,9 +59,11 @@ export function MainNavigation() {
                   to={item.href}
                   className={cn(
                     "nav-link",
-                    isActive(item.href) && "active"
+                    isActive(item.href) && "active",
+                    "flex items-center gap-1"
                   )}
                 >
+                  {item.icon && <item.icon className="h-4 w-4" />}
                   {item.name}
                 </Link>
               ))}
@@ -102,10 +106,12 @@ export function MainNavigation() {
                 to={item.href}
                 className={cn(
                   "block nav-link",
-                  isActive(item.href) && "active"
+                  isActive(item.href) && "active",
+                  "flex items-center gap-1"
                 )}
                 onClick={() => setIsMenuOpen(false)}
               >
+                {item.icon && <item.icon className="h-4 w-4" />}
                 {item.name}
               </Link>
             ))}

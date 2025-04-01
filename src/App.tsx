@@ -15,6 +15,9 @@ import Phenomenes from "./pages/PhysiqueSon/Phenomenes";
 import Instruments from "./pages/PhysiqueSon/Instruments";
 import NotFound from "./pages/NotFound";
 import Changelog from "./components/Changelog";
+import APropos from "./pages/APropos";
+import Actualite from "./pages/Actualite";
+import Ressources from "./pages/Ressources";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +38,9 @@ const App = () => (
             <Route path="/societe" element={<FonctionsSociales />} />
             <Route path="/societe/musicotherapie" element={<Musicotherapie />} />
             <Route path="/changelog" element={<Changelog />} />
+            <Route path="/a-propos" element={<APropos />} />
+            <Route path="/actualite" element={<Actualite />} />
+            <Route path="/ressources" element={<Ressources />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

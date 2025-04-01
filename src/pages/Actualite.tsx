@@ -21,8 +21,8 @@ const Actualite = () => {
         <Info className="h-4 w-4" />
         <AlertTitle>Flux RSS en direct</AlertTitle>
         <AlertDescription>
-          Cette page affiche les dernières actualités musicales provenant de sources diverses. 
-          Les flux RSS sont mis à jour régulièrement pour vous fournir les informations les plus récentes.
+          Cette page affiche les dernières actualités musicales provenant des flux RSS de Radio France.
+          Cliquez sur les différents onglets pour explorer les différentes sources d'actualités musicales.
         </AlertDescription>
       </Alert>
 

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export function MainNavigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -69,7 +70,7 @@ export function MainNavigation() {
               ))}
             </div>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center">
+          <div className="hidden sm:ml-6 sm:flex sm:items-center gap-2">
             <form onSubmit={handleSearchSubmit} className="relative">
               <Input
                 type="search"
@@ -87,6 +88,7 @@ export function MainNavigation() {
                 <Search className="h-4 w-4" />
               </Button>
             </form>
+            <ThemeSwitcher />
           </div>
           <div className="flex items-center sm:hidden">
             <Button variant="ghost" size="icon" onClick={toggleMenu}>
@@ -132,6 +134,10 @@ export function MainNavigation() {
                 <Search className="h-4 w-4" />
               </Button>
             </form>
+            <div className="mt-3 flex items-center">
+              <span className="mr-2 text-sm">Thème:</span>
+              <ThemeSwitcher />
+            </div>
           </div>
         </div>
       )}

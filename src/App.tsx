@@ -18,6 +18,7 @@ import Changelog from "./components/Changelog";
 import APropos from "./pages/APropos";
 import Actualite from "./pages/Actualite";
 import Ressources from "./pages/Ressources";
+import MusicCursor from "./components/MusicCursor";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <MusicCursor />
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<Index />} />

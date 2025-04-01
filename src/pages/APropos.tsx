@@ -9,7 +9,7 @@ const APropos = () => {
       <div className="mb-10">
         <h1 className="text-4xl font-bold mb-4">À propos de MéloDimensions</h1>
         <p className="text-lg text-muted-foreground">
-          Découvrez notre mission, notre équipe et notre approche de la musique.
+          Découvrez ma mission et mon approche de la musique.
         </p>
       </div>
 
@@ -17,25 +17,25 @@ const APropos = () => {
         <div className="col-span-12 md:col-span-8">
           <Card>
             <CardHeader>
-              <CardTitle>Notre mission</CardTitle>
+              <CardTitle>Ma mission</CardTitle>
               <CardDescription>
                 Explorer et partager les multiples dimensions de l'univers musical
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                MéloDimensions est né de la passion pour la musique sous toutes ses formes et dimensions. 
-                Notre objectif est de créer un espace où les sciences, l'art et la culture musicale se rencontrent 
+                MéloDimensions est né de ma passion pour la musique sous toutes ses formes et dimensions. 
+                Mon objectif est de créer un espace où les sciences, l'art et la culture musicale se rencontrent 
                 pour offrir une compréhension holistique de cet art universel.
               </p>
               <p>
                 De la physique des ondes sonores aux implications sociétales de différents genres musicaux, 
                 en passant par les aspects techniques de la production et l'histoire riche des mouvements musicaux, 
-                nous aspirons à couvrir l'intégralité du spectre musical.
+                j'aspire à couvrir l'intégralité du spectre musical.
               </p>
               <p>
                 Que vous soyez musicien, enseignant, étudiant, ou simplement passionné par la musique, 
-                nous espérons que MéloDimensions vous offrira des perspectives nouvelles et enrichissantes 
+                j'espère que MéloDimensions vous offrira des perspectives nouvelles et enrichissantes 
                 sur cet art qui nous unit tous.
               </p>
             </CardContent>
@@ -72,7 +72,7 @@ const APropos = () => {
       <Separator className="my-8" />
 
       <div className="mb-10">
-        <h2 className="text-2xl font-bold mb-6">Notre approche</h2>
+        <h2 className="text-2xl font-bold mb-6">Mon approche</h2>
         <div className="grid md:grid-cols-3 gap-6">
           <Card>
             <CardHeader>
@@ -80,9 +80,9 @@ const APropos = () => {
             </CardHeader>
             <CardContent>
               <p>
-                Nous considérons la musique comme un phénomène à la croisée de nombreuses disciplines : 
+                Je considère la musique comme un phénomène à la croisée de nombreuses disciplines : 
                 acoustique, psychologie, sociologie, histoire, technologie et bien plus encore.
-                Notre approche vise à intégrer ces perspectives variées pour une compréhension plus riche.
+                Mon approche vise à intégrer ces perspectives variées pour une compréhension plus riche.
               </p>
             </CardContent>
           </Card>
@@ -93,7 +93,7 @@ const APropos = () => {
             </CardHeader>
             <CardContent>
               <p>
-                Nous nous efforçons de présenter des informations complexes de manière claire et 
+                Je m'efforce de présenter des informations complexes de manière claire et 
                 accessible, avec des outils interactifs et des explications progressives adaptées 
                 aussi bien aux novices qu'aux experts.
               </p>
@@ -107,7 +107,7 @@ const APropos = () => {
             <CardContent>
               <p>
                 Comme la musique elle-même, MéloDimensions est en perpétuel développement. 
-                Nous élargissons continuellement notre contenu et affinons nos outils pour 
+                J'élargis continuellement son contenu et affine ses outils pour 
                 offrir une expérience toujours plus riche et pertinente.
               </p>
             </CardContent>

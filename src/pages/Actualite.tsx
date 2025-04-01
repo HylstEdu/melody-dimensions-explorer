@@ -1,19 +1,32 @@
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import RssFeedReader from "@/components/RssFeedReader";
-import { Rss } from "lucide-react";
+import { Rss, Info } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const Actualite = () => {
   return (
     <div className="container py-10">
-      <div className="mb-10">
-        <div className="flex items-center gap-3">
-          <h1 className="text-4xl font-bold mb-4">Actualités Musicales</h1>
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <h1 className="text-4xl font-bold">Actualités Musicales</h1>
           <Rss className="h-6 w-6 text-primary" />
         </div>
         <p className="text-lg text-muted-foreground">
           Restez informé des dernières nouvelles et événements du monde musical
         </p>
       </div>
+      
+      <Alert className="mb-8 bg-muted/50">
+        <Info className="h-4 w-4" />
+        <AlertTitle>Flux RSS en direct</AlertTitle>
+        <AlertDescription>
+          Cette page affiche les dernières actualités musicales provenant de sources diverses. 
+          Les flux RSS sont mis à jour régulièrement pour vous fournir les informations les plus récentes.
+        </AlertDescription>
+      </Alert>
+
+      <Separator className="my-8" />
 
       <RssFeedReader />
     </div>

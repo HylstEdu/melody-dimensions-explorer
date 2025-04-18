@@ -135,6 +135,6 @@ const APropos = () => {
       </div>
     </div>
   );
-};
+}
 
 export default APropos;

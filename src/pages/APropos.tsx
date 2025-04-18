@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Mail } from "lucide-react";
+import { Mail, Music, Headphones, BookOpen } from "lucide-react";
 
 const APropos = () => {
   return (
@@ -9,7 +9,7 @@ const APropos = () => {
       <div className="mb-10">
         <h1 className="text-4xl font-bold mb-4">À propos de MéloDimensions</h1>
         <p className="text-lg text-muted-foreground">
-          Découvrez ma mission et mon approche de la musique.
+          Découvrez ma passion pour la musique et le partage des connaissances.
         </p>
       </div>
 
@@ -24,19 +24,20 @@ const APropos = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                MéloDimensions est né de ma passion pour la musique sous toutes ses formes et dimensions. 
+                MéloDimensions est né de ma passion pour la musique sous toutes ses formes. 
                 Mon objectif est de créer un espace où les sciences, l'art et la culture musicale se rencontrent 
-                pour offrir une compréhension holistique de cet art universel.
+                pour offrir une compréhension approfondie de cet art universel.
               </p>
               <p>
-                De la physique des ondes sonores aux implications sociétales de différents genres musicaux, 
-                en passant par les aspects techniques de la production et l'histoire riche des mouvements musicaux, 
+                Compositeur amateur et passionné de techniques du son, je souhaite partager mes connaissances 
+                et découvertes dans un format accessible à tous. De la physique des ondes sonores aux implications 
+                sociétales de différents genres musicaux, en passant par les aspects techniques de la production, 
                 j'aspire à couvrir l'intégralité du spectre musical.
               </p>
               <p>
-                Que vous soyez musicien, enseignant, étudiant, ou simplement passionné par la musique, 
-                j'espère que MéloDimensions vous offrira des perspectives nouvelles et enrichissantes 
-                sur cet art qui nous unit tous.
+                Strasbourgeois d'origine et de cœur, je mêle influences locales et perspectives globales 
+                dans mon approche de la musique. Mon éclectisme musical et ma curiosité technique 
+                nourrissent continuellement ce projet de partage.
               </p>
             </CardContent>
           </Card>
@@ -52,15 +53,26 @@ const APropos = () => {
                   GS
                 </div>
                 <h3 className="text-xl font-semibold">Geoffroy Streit</h3>
-                <p className="text-muted-foreground">Fondateur et créateur de contenu</p>
+                <p className="text-muted-foreground">alias Hylst</p>
+                <p className="text-sm text-muted-foreground mt-1">Strasbourg, France</p>
               </div>
-              <p className="mb-4 text-center">
-                Passionné de musique et de pédagogie, cherchant à rendre accessibles 
-                les concepts complexes liés à l'univers musical.
-              </p>
-              <div className="flex justify-center">
-                <a href="mailto:geoffroy.streit@gmail.com" className="flex items-center gap-2 text-primary hover:underline">
-                  <Mail size={16} />
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Music className="h-4 w-4" />
+                  <span>Compositeur occasionnel</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Headphones className="h-4 w-4" />
+                  <span>Passionné de techniques du son</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <BookOpen className="h-4 w-4" />
+                  <span>Explorateur musical</span>
+                </div>
+              </div>
+              <div className="mt-6 pt-6 border-t">
+                <a href="mailto:geoffroy.streit@gmail.com" className="flex items-center gap-2 text-primary hover:underline justify-center">
+                  <Mail className="h-4 w-4" />
                   geoffroy.streit@gmail.com
                 </a>
               </div>
@@ -80,9 +92,9 @@ const APropos = () => {
             </CardHeader>
             <CardContent>
               <p>
-                Je considère la musique comme un phénomène à la croisée de nombreuses disciplines : 
-                acoustique, psychologie, sociologie, histoire, technologie et bien plus encore.
-                Mon approche vise à intégrer ces perspectives variées pour une compréhension plus riche.
+                Je considère la musique comme un phénomène à la croisée de nombreuses disciplines. 
+                Mon approche vise à intégrer ces perspectives variées pour une compréhension plus riche 
+                et plus complète de l'expérience musicale.
               </p>
             </CardContent>
           </Card>
@@ -94,8 +106,8 @@ const APropos = () => {
             <CardContent>
               <p>
                 Je m'efforce de présenter des informations complexes de manière claire et 
-                accessible, avec des outils interactifs et des explications progressives adaptées 
-                aussi bien aux novices qu'aux experts.
+                accessible, avec des explications progressives adaptées aussi bien aux novices 
+                qu'aux passionnés avertis.
               </p>
             </CardContent>
           </Card>
@@ -107,8 +119,8 @@ const APropos = () => {
             <CardContent>
               <p>
                 Comme la musique elle-même, MéloDimensions est en perpétuel développement. 
-                J'élargis continuellement son contenu et affine ses outils pour 
-                offrir une expérience toujours plus riche et pertinente.
+                J'enrichis continuellement son contenu pour offrir une expérience toujours 
+                plus pertinente et enrichissante.
               </p>
             </CardContent>
           </Card>

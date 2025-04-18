@@ -17,12 +17,10 @@ import {
 } from "lucide-react";
 import React from "react";
 
-// Function to create icon elements to avoid syntax errors in data objects
 const createIcon = (Icon: React.ElementType, className: string = "h-4 w-4") => {
   return React.createElement(Icon, { className });
 };
 
-// Genre categories for quick navigation
 export const genreCategories = [
   { id: "rock", name: "Rock & Metal", icon: createIcon(Guitar) },
   { id: "electronic", name: "Électronique", icon: createIcon(Disc) },
@@ -35,7 +33,6 @@ export const genreCategories = [
   { id: "other", name: "Autres genres", icon: createIcon(Music) },
 ];
 
-// Define the music influence data for the chart
 export const musicInfluenceData = [
   {
     id: "rock",
@@ -144,7 +141,6 @@ export const musicInfluenceData = [
   }
 ];
 
-// Timeline data for the evolution section
 export const musicEvolution = [
   {
     year: "1900-1920",
@@ -188,7 +184,6 @@ export const musicEvolution = [
   }
 ];
 
-// Contemporary subgenres for the grid section
 export const contemporaryGenres = [
   {
     name: "Vaporwave",
@@ -258,7 +253,6 @@ export const contemporaryGenres = [
   }
 ];
 
-// Fusion genres showcase
 export const fusionGenres = [
   {
     title: "Jazz Fusion",
@@ -326,7 +320,6 @@ export const fusionGenres = [
   }
 ];
 
-// Main featured genres with detailed content
 export const mainGenres = [
   {
     name: "Rock",
@@ -708,4 +701,8 @@ export const mainGenres = [
     ],
     influences: ["Metalcore", "Progressive Metal", "Djent"],
     influencedBy: ["Hard Rock", "Punk", "Classical"],
-    image: "https://images.unsplash.com/photo-1652783447
+    image: "https://images.unsplash.com/photo-1652783447-image-of-metal-music",
+    color: "bg-red-500/10",
+    slug: "metal"
+  }
+];

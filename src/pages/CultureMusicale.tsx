@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,7 +13,7 @@ import {
   Music2, 
   ArrowRight, 
   Volume2, 
-  Microphone2, 
+  Mic2, 
   PieChart, 
   Globe, 
   Clock,
@@ -37,7 +36,7 @@ const genreCategories = [
   { id: "rock", name: "Rock & Metal", icon: <Guitar className="h-4 w-4" /> },
   { id: "electronic", name: "Électronique", icon: <Disc className="h-4 w-4" /> },
   { id: "jazz-blues", name: "Jazz & Blues", icon: <Music2 className="h-4 w-4" /> },
-  { id: "hip-hop", name: "Hip-Hop & R&B", icon: <Microphone2 className="h-4 w-4" /> },
+  { id: "hip-hop", name: "Hip-Hop & R&B", icon: <Mic2 className="h-4 w-4" /> },
   { id: "world", name: "Musique du Monde", icon: <Globe className="h-4 w-4" /> },
   { id: "classical", name: "Classique", icon: <Piano className="h-4 w-4" /> },
   { id: "pop", name: "Pop & Disco", icon: <Radio className="h-4 w-4" /> },
@@ -693,7 +692,7 @@ const mainGenres = [
       },
       {
         name: "Taylor Swift",
-        description: "Auteure-compositrice-interprète aux multiples succès",
+        description: "Auteure-compositrice-interprète aux succès multiples",
         years: "2000s-présent"
       }
     ],
@@ -761,7 +760,7 @@ const contemporaryGenres = [
     artists: ["James Blake", "Mount Kimbie", "Burial"],
     keyCharacteristics: [
       "Rythmiques syncopées et minimalistes",
-      "Atmosphères émotionnelles et spatiales",
+      " atmosphères émotionnelles et spatiales",
       "Mélange de vocaux traités et de basses profondes"
     ]
   },
@@ -991,9 +990,9 @@ const CultureMusicale = () => {
               {musicEvolution.map((era, index) => (
                 <TimelineCard 
                   key={index}
-                  year={era.year}
                   title={era.title}
                   description={era.description}
+                  events={[{ year: era.year, title: era.title, description: era.description }]}
                 />
               ))}
             </div>
@@ -1066,75 +1065,111 @@ const CultureMusicale = () => {
             value="baroque"
             title="Période baroque (1600-1750)"
             description="Époque marquée par l'ornementation, le contrepoint et l'importance du contraste"
-            characteristics={[
-              "Utilisation de la basse continue",
-              "Ornementation abondante",
-              "Développement de l'opéra et de l'oratorio",
-              "Importance du contrepoint"
+            timelineEvents={[
+              { year: "1600", title: "Naissance de l'opéra", description: "Premiers opéras de Monteverdi" },
+              { year: "1685", title: "Naissance de Bach et Händel", description: "Deux figures majeures de la période" },
+              { year: "1725", title: "Les Quatre Saisons", description: "Chef-d'œuvre de Vivaldi" }
             ]}
-            composers={[
-              "Johann Sebastian Bach",
-              "Georg Friedrich Haendel",
-              "Antonio Vivaldi",
-              "Jean-Philippe Rameau"
+            genres={[
+              { 
+                title: "Musique instrumentale", 
+                description: "Développement du concerto et de la suite orchestrale",
+                characteristics: [
+                  { title: "Basse continue", description: "Fondement harmonique omniprésent" },
+                  { title: "Ornementation", description: "Utilisation abondante de trilles et mordants" }
+                ],
+                artists: [
+                  { name: "J.S. Bach", description: "Maître du contrepoint" },
+                  { name: "A. Vivaldi", description: "Innovateur du concerto" }
+                ]
+              },
+              { 
+                title: "Opéra baroque", 
+                description: "Naissance et développement de l'art lyrique",
+                characteristics: [
+                  { title: "Da capo aria", description: "Structure ABA avec ornements improvisés" },
+                  { title: "Récitatif", description: "Passages narratifs entre les arias" }
+                ],
+                artists: [
+                  { name: "C. Monteverdi", description: "Pionnier de l'opéra" },
+                  { name: "G.F. Händel", description: "Opéras et oratorios" }
+                ]
+              }
             ]}
-            keyWorks={[
-              "Les Quatre Saisons (Vivaldi)",
-              "Le Messie (Haendel)",
-              "Passion selon Saint Matthieu (Bach)"
-            ]}
-            instruments={["Clavecin", "Orgue", "Violon baroque", "Théorbe"]}
           />
           
           <MusicalPeriodTab 
             value="classical"
             title="Période classique (1730-1820)"
             description="Caractérisée par l'équilibre, la clarté formelle et l'élégance"
-            characteristics={[
-              "Structures formelles claires (forme sonate)",
-              "Phrases musicales symétriques",
-              "Harmonie plus simple que le baroque",
-              "Prédominance de la mélodie accompagnée"
+            timelineEvents={[
+              { year: "1756", title: "Naissance de Mozart", description: "L'un des plus grands génies musicaux" },
+              { year: "1770", title: "Naissance de Beethoven", description: "Le pont entre classicisme et romantisme" },
+              { year: "1791", title: "Mort de Mozart", description: "Dernière œuvre : Requiem inachevé" }
             ]}
-            composers={[
-              "Wolfgang Amadeus Mozart",
-              "Joseph Haydn",
-              "Ludwig van Beethoven (début)",
-              "Christoph Willibald Gluck"
+            genres={[
+              { 
+                title: "Symphonie classique", 
+                description: "Établissement de la forme en quatre mouvements",
+                characteristics: [
+                  { title: "Forme sonate", description: "Structure avec exposition, développement et réexposition" },
+                  { title: "Orchestration", description: "Équilibre entre les sections" }
+                ],
+                artists: [
+                  { name: "J. Haydn", description: "Père de la symphonie" },
+                  { name: "W.A. Mozart", description: "Raffinement et équilibre" }
+                ]
+              },
+              { 
+                title: "Musique de chambre", 
+                description: "Développement du quatuor à cordes",
+                characteristics: [
+                  { title: "Dialogue instrumental", description: "Équilibre entre les voix" },
+                  { title: "Clarté formelle", description: "Structures claires et symétriques" }
+                ],
+                artists: [
+                  { name: "J. Haydn", description: "Innovateur du quatuor" },
+                  { name: "L. Boccherini", description: "Élégance italienne" }
+                ]
+              }
             ]}
-            keyWorks={[
-              "Symphonie n°40 (Mozart)",
-              "Les Quatuors Opus 76 (Haydn)",
-              "Concerto pour piano n°5 (Beethoven)"
-            ]}
-            instruments={["Piano-forte", "Orchestre classique", "Quatuor à cordes"]}
           />
           
           <MusicalPeriodTab 
             value="romantic"
             title="Période romantique (1800-1910)"
             description="Marquée par l'expression des émotions, le nationalisme et l'expansion de l'orchestre"
-            characteristics={[
-              "Expression intense des émotions",
-              "Expansion de l'orchestre",
-              "Programmes narratifs et descriptifs",
-              "Virtuosité instrumentale",
-              "Mouvements nationalistes"
+            timelineEvents={[
+              { year: "1804", title: "Symphonie héroïque", description: "Œuvre révolutionnaire de Beethoven" },
+              { year: "1830", title: "Symphonie fantastique", description: "Programme narratif de Berlioz" },
+              { year: "1876", title: "L'Anneau du Nibelung", description: "Tétralogie monumentale de Wagner" }
             ]}
-            composers={[
-              "Ludwig van Beethoven (tardif)",
-              "Franz Schubert",
-              "Frédéric Chopin",
-              "Richard Wagner",
-              "Piotr Ilitch Tchaïkovski"
+            genres={[
+              { 
+                title: "Musique à programme", 
+                description: "Œuvres basées sur des histoires ou des idées extra-musicales",
+                characteristics: [
+                  { title: "Leitmotiv", description: "Thèmes associés à des personnages ou idées" },
+                  { title: "Orchestration colorée", description: "Recherche de nouvelles sonorités" }
+                ],
+                artists: [
+                  { name: "H. Berlioz", description: "Orchestrateur innovant" },
+                  { name: "F. Liszt", description: "Créateur du poème symphonique" }
+                ]
+              },
+              { 
+                title: "Opéra romantique", 
+                description: "Drame musical avec orchestre développé",
+                characteristics: [
+                  { title: "Drame musical", description: "Fusion de musique et action dramatique" },
+                  { title: "Nationalisme", description: "Utilisation de thèmes folkloriques" }
+                ],
+                artists: [
+                  { name: "R. Wagner", description: "Révolutionnaire du drame musical" },
+                  { name: "G. Verdi", description: "Maître de l'opéra italien" }
+                ]
+              }
             ]}
-            keyWorks={[
-              "Symphonie n°9 (Beethoven)",
-              "Nocturnes (Chopin)",
-              "L'Anneau du Nibelung (Wagner)",
-              "Requiem (Verdi)"
-            ]}
-            instruments={["Piano romantique", "Grand orchestre", "Instruments chromatiques"]}
           />
           
           {/* More MusicalPeriodTab components can be added for other periods */}
@@ -1154,7 +1189,11 @@ const CultureMusicale = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[500px]">
-            <MusicInfluenceChart />
+            <MusicInfluenceChart 
+              title="Carte des influences musicales"
+              description="Interconnexions entre les différents genres musicaux à travers l'histoire"
+              genres={musicInfluenceData}
+            />
           </CardContent>
           <CardFooter>
             <p className="text-sm text-muted-foreground">

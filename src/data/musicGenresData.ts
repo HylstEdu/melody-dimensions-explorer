@@ -17,17 +17,22 @@ import {
 } from "lucide-react";
 import React from "react";
 
+// Function to create icon elements to avoid syntax errors in data objects
+const createIcon = (Icon: React.ElementType, className: string = "h-4 w-4") => {
+  return React.createElement(Icon, { className });
+};
+
 // Genre categories for quick navigation
 export const genreCategories = [
-  { id: "rock", name: "Rock & Metal", icon: <Guitar className="h-4 w-4" /> },
-  { id: "electronic", name: "Électronique", icon: <Disc className="h-4 w-4" /> },
-  { id: "jazz-blues", name: "Jazz & Blues", icon: <Music2 className="h-4 w-4" /> },
-  { id: "hip-hop", name: "Hip-Hop & R&B", icon: <Mic2 className="h-4 w-4" /> },
-  { id: "world", name: "Musique du Monde", icon: <Globe className="h-4 w-4" /> },
-  { id: "classical", name: "Classique", icon: <Piano className="h-4 w-4" /> },
-  { id: "pop", name: "Pop & Disco", icon: <Radio className="h-4 w-4" /> },
-  { id: "folk", name: "Folk & Country", icon: <Mic className="h-4 w-4" /> },
-  { id: "other", name: "Autres genres", icon: <Music className="h-4 w-4" /> },
+  { id: "rock", name: "Rock & Metal", icon: createIcon(Guitar) },
+  { id: "electronic", name: "Électronique", icon: createIcon(Disc) },
+  { id: "jazz-blues", name: "Jazz & Blues", icon: createIcon(Music2) },
+  { id: "hip-hop", name: "Hip-Hop & R&B", icon: createIcon(Mic2) },
+  { id: "world", name: "Musique du Monde", icon: createIcon(Globe) },
+  { id: "classical", name: "Classique", icon: createIcon(Piano) },
+  { id: "pop", name: "Pop & Disco", icon: createIcon(Radio) },
+  { id: "folk", name: "Folk & Country", icon: createIcon(Mic) },
+  { id: "other", name: "Autres genres", icon: createIcon(Music) },
 ];
 
 // Define the music influence data for the chart
@@ -258,7 +263,7 @@ export const fusionGenres = [
   {
     title: "Jazz Fusion",
     description: "Mélange du jazz avec le rock, le funk et le R&B, souvent avec des instruments électriques et des influences de musiques du monde.",
-    icon: <Music2 className="h-5 w-5" />,
+    icon: createIcon(Music2, "h-5 w-5"),
     characteristics: [
       {title: "Instrumentation", description: "Instruments électriques, synthétiseurs avec techniques jazz"},
       {title: "Structure", description: "Improvisation sur des rythmes complexes et grooves funk"},
@@ -274,7 +279,7 @@ export const fusionGenres = [
   {
     title: "Nu-Metal",
     description: "Fusion de metal alternatif avec des éléments de hip-hop, de musique électronique et de funk.",
-    icon: <Guitar className="h-5 w-5" />,
+    icon: createIcon(Guitar, "h-5 w-5"),
     characteristics: [
       {title: "Son", description: "Guitares accordées bas avec DJs et rap"},
       {title: "Thèmes", description: "Angoisses personnelles et aliénation sociale"},
@@ -290,7 +295,7 @@ export const fusionGenres = [
   {
     title: "Trip-Hop",
     description: "Fusion de hip-hop avec de l'ambient, du soul et du jazz, créant une atmosphère sombre et cinématique.",
-    icon: <Disc className="h-5 w-5" />,
+    icon: createIcon(Disc, "h-5 w-5"),
     characteristics: [
       {title: "Rythme", description: "Beats lents et ambiance mélancolique"},
       {title: "Production", description: "Samples obscurs et textures atmosphériques"},
@@ -306,7 +311,7 @@ export const fusionGenres = [
   {
     title: "Afrobeat",
     description: "Fusion de musiques traditionnelles yoruba, jazz, highlife et funk, développée par Fela Kuti au Nigeria.",
-    icon: <Drumstick className="h-5 w-5" />,
+    icon: createIcon(Drumstick, "h-5 w-5"),
     characteristics: [
       {title: "Rythme", description: "Polyrhythmes complexes avec section cuivre"},
       {title: "Structure", description: "Morceaux longs avec engagement politique"},
@@ -673,7 +678,7 @@ export const mainGenres = [
       },
       {
         name: "Death Metal",
-        description: "Style extrême avec voix gutturales, guitares ultra-distordues et thèmes macabres.",
+        description: "Style extrême avec voix gutturales, guitares ultra-distordées et thèmes macabres.",
         era: "1980s - présent"
       },
       {
@@ -703,4 +708,4 @@ export const mainGenres = [
     ],
     influences: ["Metalcore", "Progressive Metal", "Djent"],
     influencedBy: ["Hard Rock", "Punk", "Classical"],
-    image: "https://images.unsplash.com/photo-16527
+    image: "https://images.unsplash.com/photo-1652783447

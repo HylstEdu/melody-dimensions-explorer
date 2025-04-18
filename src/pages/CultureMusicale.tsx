@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -1046,19 +1047,20 @@ const CultureMusicale = () => {
       
       {/* Desktop navigation tabs */}
       <div className="hidden md:block mb-10">
-        <TabsList className="flex-wrap">
-          {genreCategories.map((category) => (
-            <TabsTrigger 
-              key={category.id}
-              value={category.id}
-              className="flex items-center gap-1"
-              onClick={() => setActiveGenre(category.id)}
-            >
-              {category.icon}
-              {category.name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <Tabs value={activeGenre} onValueChange={setActiveGenre}>
+          <TabsList className="flex-wrap">
+            {genreCategories.map((category) => (
+              <TabsTrigger 
+                key={category.id}
+                value={category.id}
+                className="flex items-center gap-1"
+              >
+                {category.icon}
+                {category.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
       </div>
 
       {/* Mobile dropdown */}

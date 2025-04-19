@@ -1,21 +1,23 @@
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import MusicHeader from '@/components/music/MusicHeader';
-import GenresPrincipauxSection from './cultureMusicale/sections/GenresPrincipauxSection';
-import EvolutionSection from './cultureMusicale/sections/EvolutionSection';
-import ContemporainSection from './cultureMusicale/sections/ContemporainSection';
-import FusionSection from './cultureMusicale/sections/FusionSection';
-import PeriodesSection from './cultureMusicale/sections/PeriodesSection';
+// Import des sections dédiées
+import MusicHeader from "@/components/music/MusicHeader";
+
+import GenresPrincipauxSection from "./cultureMusicale/sections/GenresPrincipauxSection";
+import EvolutionSection from "./cultureMusicale/sections/EvolutionSection";
+import ContemporainSection from "./cultureMusicale/sections/ContemporainSection";
+import FusionSection from "./cultureMusicale/sections/FusionSection";
+import PeriodesSection from "./cultureMusicale/sections/PeriodesSection";
 
 const CultureMusicale = () => {
   const [activeGenre, setActiveGenre] = useState("rock");
 
   return (
     <div className="container py-10 space-y-12">
-      <MusicHeader 
+      <MusicHeader
         title="Encyclopédie des Genres Musicaux"
         description="Explorez la riche diversité des genres musicaux à travers l'histoire, les caractéristiques, et les artistes emblématiques qui ont façonné notre patrimoine sonore mondial"
       />
@@ -30,9 +32,9 @@ const CultureMusicale = () => {
         </TabsList>
 
         <TabsContent value="genres">
-          <GenresPrincipauxSection 
-            activeGenre={activeGenre} 
-            setActiveGenre={setActiveGenre} 
+          <GenresPrincipauxSection
+            activeGenre={activeGenre}
+            setActiveGenre={setActiveGenre}
           />
         </TabsContent>
 
@@ -57,3 +59,4 @@ const CultureMusicale = () => {
 };
 
 export default CultureMusicale;
+

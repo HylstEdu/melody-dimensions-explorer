@@ -1,7 +1,6 @@
+import React from "react";
 
-import React from 'react';
-
-import MusicalPeriodsSection from '@/components/music/MusicalPeriodsSection';
+import MusicalPeriodsSection from "@/components/music/MusicalPeriodsSection";
 
 const PeriodesSection: React.FC = () => {
   return <MusicalPeriodsSection />;

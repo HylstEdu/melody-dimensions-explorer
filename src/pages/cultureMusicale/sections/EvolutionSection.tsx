@@ -1,11 +1,10 @@
+import React from "react";
 
-import React from 'react';
+import { musicEvolution } from "@/data/music/musicEvolution";
+import { musicInfluenceData } from "@/data/music/musicInfluenceData";
 
-import { musicEvolution } from '@/data/music/musicEvolution';
-import { musicInfluenceData } from '@/data/music/musicInfluenceData';
-
-import MusicEvolutionTimeline from '@/components/music/MusicEvolutionTimeline';
-import MusicInfluenceChartSection from '@/components/music/MusicInfluenceChartSection';
+import MusicEvolutionTimeline from "@/components/music/MusicEvolutionTimeline";
+import MusicInfluenceChartSection from "@/components/music/MusicInfluenceChartSection";
 
 const EvolutionSection: React.FC = () => {
   return (

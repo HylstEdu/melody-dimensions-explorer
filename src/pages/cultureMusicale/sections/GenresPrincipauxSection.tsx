@@ -1,11 +1,11 @@
 
-import React from 'react';
+import React from "react";
 
-import { genreCategories } from '@/data/music/genreCategories';
-import { mainGenres } from '@/data/music/mainGenres';
+import { genreCategories } from "@/data/music/genreCategories";
+import { mainGenres } from "@/data/music/mainGenres";
 
-import GenreNavigation from '@/components/music/GenreNavigation';
-import GenreSection from '@/components/music/GenreSection';
+import GenreNavigation from "@/components/music/GenreNavigation";
+import GenreSection from "@/components/music/GenreSection";
 
 interface GenresPrincipauxSectionProps {
   activeGenre: string;
@@ -14,11 +14,11 @@ interface GenresPrincipauxSectionProps {
 
 const GenresPrincipauxSection: React.FC<GenresPrincipauxSectionProps> = ({
   activeGenre,
-  setActiveGenre
+  setActiveGenre,
 }) => {
   return (
     <div className="space-y-20">
-      <GenreNavigation 
+      <GenreNavigation
         categories={genreCategories}
         activeGenre={activeGenre}
         setActiveGenre={setActiveGenre}
@@ -32,3 +32,4 @@ const GenresPrincipauxSection: React.FC<GenresPrincipauxSectionProps> = ({
 };
 
 export default GenresPrincipauxSection;
+

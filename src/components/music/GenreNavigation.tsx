@@ -26,7 +26,7 @@ const GenreNavigation: React.FC<GenreNavigationProps> = ({
     <>
       {/* Desktop navigation tabs */}
       <div className="hidden md:block mb-10">
-        <Tabs defaultValue={activeGenre} value={activeGenre} onValueChange={setActiveGenre}>
+        <Tabs value={activeGenre} onValueChange={setActiveGenre}>
           <TabsList className="flex-wrap">
             {categories.map((category) => (
               <TabsTrigger 

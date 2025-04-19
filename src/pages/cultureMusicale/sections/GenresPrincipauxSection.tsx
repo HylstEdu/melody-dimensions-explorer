@@ -16,12 +16,21 @@ const GenresPrincipauxSection: React.FC<GenresPrincipauxSectionProps> = ({
   activeGenre,
   setActiveGenre,
 }) => {
+  // On va scroller à l'ancre quand on change de genre
+  const handleGenreChange = (id: string) => {
+    setActiveGenre(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="space-y-20">
       <GenreNavigation
         categories={genreCategories}
         activeGenre={activeGenre}
-        setActiveGenre={setActiveGenre}
+        setActiveGenre={handleGenreChange}
       />
 
       {mainGenres.map((genre) => (
@@ -32,4 +41,3 @@ const GenresPrincipauxSection: React.FC<GenresPrincipauxSectionProps> = ({
 };
 
 export default GenresPrincipauxSection;
-

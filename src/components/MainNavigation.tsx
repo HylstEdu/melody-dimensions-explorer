@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from "react-router-dom";
-import { Search, Menu, X, Newspaper, LinkIcon } from "lucide-react";
+import { Search, Menu, X, Newspaper, LinkIcon, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -19,7 +19,8 @@ export function MainNavigation() {
     { name: "Aspects Techniques", href: "/technique" },
     { name: "Fonctions Sociales", href: "/societe" },
     { name: "Actualité", href: "/actualite", icon: Newspaper },
-    { name: "Ressources", href: "/ressources", icon: LinkIcon }
+    { name: "Ressources", href: "/ressources", icon: LinkIcon },
+    { name: "Glossaire", href: "/culture/glossaire", icon: BookOpen },
   ];
 
   const isActive = (path: string) => {
@@ -144,3 +145,4 @@ export function MainNavigation() {
     </nav>
   );
 }
+

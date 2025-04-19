@@ -12,6 +12,8 @@ import ContemporainSection from "./cultureMusicale/sections/ContemporainSection"
 import FusionSection from "./cultureMusicale/sections/FusionSection";
 import PeriodesSection from "./cultureMusicale/sections/PeriodesSection";
 
+import GlossaireMusicaux from "@/components/music/GlossaireMusicaux";
+
 const CultureMusicale = () => {
   const [activeGenre, setActiveGenre] = useState("rock");
 
@@ -29,6 +31,7 @@ const CultureMusicale = () => {
           <TabsTrigger value="contemporain">Contemporain</TabsTrigger>
           <TabsTrigger value="fusion">Fusion</TabsTrigger>
           <TabsTrigger value="periodes">Périodes</TabsTrigger>
+          <TabsTrigger value="glossaire">Glossaire</TabsTrigger>
         </TabsList>
 
         <TabsContent value="genres">
@@ -52,6 +55,10 @@ const CultureMusicale = () => {
 
         <TabsContent value="periodes">
           <PeriodesSection />
+        </TabsContent>
+
+        <TabsContent value="glossaire">
+          <GlossaireMusicaux />
         </TabsContent>
       </Tabs>
     </div>

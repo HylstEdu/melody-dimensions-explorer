@@ -1,15 +1,15 @@
 
 import React, { useState } from 'react';
-import { 
-  genreCategories,
-  musicInfluenceData, 
-  musicEvolution,
-  contemporaryGenres,
-  fusionGenres,
-  mainGenres 
-} from '@/data/music/mainGenres';
+
+import { genreCategories } from '@/data/music/genreCategories';
+import { musicInfluenceData } from '@/data/music/musicInfluenceData';
+import { musicEvolution } from '@/data/music/musicEvolution';
+import { contemporaryGenres } from '@/data/music/contemporaryGenres';
+import { fusionGenres } from '@/data/music/fusionGenres';
+import { mainGenres } from '@/data/music/mainGenres';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import MusicHeader from '@/components/music/MusicHeader';
 import GenreNavigation from '@/components/music/GenreNavigation';
 import MusicEvolutionTimeline from '@/components/music/MusicEvolutionTimeline';

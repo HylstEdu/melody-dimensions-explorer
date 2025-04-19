@@ -17,7 +17,7 @@ const GenresPrincipauxSection: React.FC<GenresPrincipauxSectionProps> = ({
   setActiveGenre
 }) => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-20">
       <GenreNavigation 
         categories={genreCategories}
         activeGenre={activeGenre}

@@ -21,7 +21,7 @@ const CultureMusicale = () => {
       />
 
       <Tabs defaultValue="genres" className="w-full">
-        <TabsList className="w-full justify-start mb-8">
+        <TabsList className="w-full justify-start mb-8 flex-wrap gap-2">
           <TabsTrigger value="genres">Genres Principaux</TabsTrigger>
           <TabsTrigger value="evolution">Évolution</TabsTrigger>
           <TabsTrigger value="contemporain">Contemporain</TabsTrigger>

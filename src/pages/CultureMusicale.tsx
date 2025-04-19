@@ -1,24 +1,14 @@
 
 import React, { useState } from 'react';
 
-import { genreCategories } from '@/data/music/genreCategories';
-import { musicInfluenceData } from '@/data/music/musicInfluenceData';
-import { musicEvolution } from '@/data/music/musicEvolution';
-import { contemporaryGenres } from '@/data/music/contemporaryGenres';
-import { fusionGenres } from '@/data/music/fusionGenres';
-import { mainGenres } from '@/data/music/mainGenres';
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import MusicHeader from '@/components/music/MusicHeader';
-import GenreNavigation from '@/components/music/GenreNavigation';
-import MusicEvolutionTimeline from '@/components/music/MusicEvolutionTimeline';
-import GenreSection from '@/components/music/GenreSection';
-import ContemporaryGenresSection from '@/components/music/ContemporaryGenresSection';
-import FusionGenresSection from '@/components/music/FusionGenresSection';
-import MusicalPeriodsSection from '@/components/music/MusicalPeriodsSection';
-import MusicInfluenceChartSection from '@/components/music/MusicInfluenceChartSection';
-import GenreGridSection from '@/components/music/GenreGridSection';
+import GenresPrincipauxSection from './cultureMusicale/sections/GenresPrincipauxSection';
+import EvolutionSection from './cultureMusicale/sections/EvolutionSection';
+import ContemporainSection from './cultureMusicale/sections/ContemporainSection';
+import FusionSection from './cultureMusicale/sections/FusionSection';
+import PeriodesSection from './cultureMusicale/sections/PeriodesSection';
 
 const CultureMusicale = () => {
   const [activeGenre, setActiveGenre] = useState("rock");
@@ -29,7 +19,7 @@ const CultureMusicale = () => {
         title="Encyclopédie des Genres Musicaux"
         description="Explorez la riche diversité des genres musicaux à travers l'histoire, les caractéristiques, et les artistes emblématiques qui ont façonné notre patrimoine sonore mondial"
       />
-      
+
       <Tabs defaultValue="genres" className="w-full">
         <TabsList className="w-full justify-start mb-8">
           <TabsTrigger value="genres">Genres Principaux</TabsTrigger>
@@ -39,35 +29,27 @@ const CultureMusicale = () => {
           <TabsTrigger value="periodes">Périodes</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="genres" className="space-y-8">
-          <GenreNavigation 
-            categories={genreCategories}
-            activeGenre={activeGenre}
-            setActiveGenre={setActiveGenre}
+        <TabsContent value="genres">
+          <GenresPrincipauxSection 
+            activeGenre={activeGenre} 
+            setActiveGenre={setActiveGenre} 
           />
-          
-          {mainGenres.map((genre) => (
-            <GenreSection key={genre.slug} {...genre} />
-          ))}
         </TabsContent>
 
         <TabsContent value="evolution">
-          <div className="space-y-12">
-            <MusicEvolutionTimeline events={musicEvolution} />
-            <MusicInfluenceChartSection genres={musicInfluenceData} />
-          </div>
+          <EvolutionSection />
         </TabsContent>
 
         <TabsContent value="contemporain">
-          <ContemporaryGenresSection genres={contemporaryGenres} />
+          <ContemporainSection />
         </TabsContent>
 
         <TabsContent value="fusion">
-          <FusionGenresSection genres={fusionGenres} />
+          <FusionSection />
         </TabsContent>
 
         <TabsContent value="periodes">
-          <MusicalPeriodsSection />
+          <PeriodesSection />
         </TabsContent>
       </Tabs>
     </div>
